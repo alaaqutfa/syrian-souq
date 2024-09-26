@@ -117,7 +117,6 @@ class ProductsImport implements ToCollection, WithHeadingRow, WithValidation, To
             $upload->external_link = $url;
             $upload->type = 'image';
             $upload->save();
-
             return $upload->id;
         } catch (\Exception $e) {
         }
