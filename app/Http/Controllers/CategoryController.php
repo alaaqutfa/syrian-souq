@@ -10,11 +10,12 @@ use App\Models\User;
 use App\Utility\CategoryUtility;
 use Illuminate\Support\Str;
 use Cache;
+use Illuminate\Contracts\View\View;
 
 class CategoryController extends Controller
 {
     public function __construct() {
-        
+
         // Staff Permission Check
         $this->middleware(['permission:view_product_categories'])->only('index');
         $this->middleware(['permission:add_product_category'])->only('create');
@@ -27,7 +28,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $sort_search =null;
         $categories = Category::orderBy('order_level', 'desc');
@@ -44,7 +45,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         $categories = Category::where('parent_id', 0)
             ->where('digital', 0)
@@ -110,10 +111,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
