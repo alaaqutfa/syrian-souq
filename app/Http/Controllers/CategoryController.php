@@ -11,6 +11,7 @@ use App\Utility\CategoryUtility;
 use Illuminate\Support\Str;
 use Cache;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
@@ -122,7 +123,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id): View
     {
         $lang = $request->lang;
         $category = Category::findOrFail($id);
@@ -147,7 +148,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $category = Category::findOrFail($id);
         if($request->lang == env("DEFAULT_LANGUAGE")){
