@@ -215,6 +215,10 @@ class ProductController extends Controller
 
         //Product categories
         $product->categories()->attach($request->category_ids);
+        foreach ($request->category_ids as $category_id) {
+            $category_products_count = get_count_product_in_category($category_id);
+            activate_category($category_id,$category_products_count);
+        }
 
         //VAT & Tax
         if ($request->tax_id) {
@@ -329,7 +333,10 @@ class ProductController extends Controller
 
         //Product categories
         $product->categories()->sync($request->category_ids);
-
+        foreach ($request->category_ids as $category_id) {
+            $category_products_count = get_count_product_in_category($category_id);
+            activate_category($category_id,$category_products_count);
+        }
 
         //Product Stock
         $product->stocks()->delete();
@@ -385,7 +392,12 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-
+        $product_categories = ProductCategory::where('product_id',$id)->get();
+        $category_ids = array();
+        $category_ids[0] = $product->category_id;
+        foreach ($product_categories as $category) {
+            $category_ids[] = $category->category_id;
+        }
         $product->product_translations()->delete();
         $product->categories()->detach();
         $product->stocks()->delete();
@@ -395,6 +407,10 @@ class ProductController extends Controller
         $product->flash_deal_products()->delete();
 
         if (Product::destroy($id)) {
+            foreach ($category_ids as $category_id) {
+                $category_products_count = get_count_product_in_category($category_id);
+                activate_category($category_id,$category_products_count);
+            }
             Cart::where('product_id', $id)->delete();
             Wishlist::where('product_id', $id)->delete();
 

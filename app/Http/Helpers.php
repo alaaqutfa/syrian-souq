@@ -2684,3 +2684,28 @@ if (!function_exists('timezones')) {
         );
     }
 }
+
+if(!function_exists('get_count_product_in_category')){
+    function get_count_product_in_category($category_id){
+        $products = Product::where('category_id',$category_id)->get();
+        return count($products);
+    }
+}
+
+if(!function_exists('activate_category')){
+    function activate_category($category_id, $products_count){
+        $category = Category::where('id', $category_id)->first();
+        if (!$category) {
+            return false; // Category not found
+        }
+        if ($products_count > 0) {
+            $category->active = 1;
+            $category->save();
+            return true;
+        } elseif ($products_count == 0) {
+            $category->active = 0;
+            $category->save();
+        }
+        return false;
+    }
+}

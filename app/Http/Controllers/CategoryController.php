@@ -14,6 +14,7 @@ use Cache;
 class CategoryController extends Controller
 {
     public function __construct() {
+        
         // Staff Permission Check
         $this->middleware(['permission:view_product_categories'])->only('index');
         $this->middleware(['permission:add_product_category'])->only('create');
@@ -235,6 +236,15 @@ class CategoryController extends Controller
 
         flash(translate('Category has been deleted successfully'))->success();
         return redirect()->route('categories.index');
+    }
+
+    public function updateActivated(Request $request)
+    {
+        $category = Category::findOrFail($request->id);
+        $category->active = $request->status;
+        $category->save();
+        Cache::forget('featured_categories');
+        return 1;
     }
 
     public function updateFeatured(Request $request)

@@ -251,7 +251,7 @@
     <script>
         $(document).ready(function(){
             var currend_code = '{{ get_system_currency()->code }}';
-            var amount = 'single_price($combined_order->grand_total) }}';
+            var amount = '{{ single_price($combined_order->grand_total) }}';
             fbq('track', 'Purchase',
                 {
                     value: amount,
@@ -264,4 +264,4 @@
     <!-- Facebook Pixel purchase Event -->
     @endif
 @endsection
-        
+

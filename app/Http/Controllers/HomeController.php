@@ -45,7 +45,7 @@ class HomeController extends Controller
     {
         $lang = get_system_language() ? get_system_language()->code : null;
         $featured_categories = Cache::rememberForever('featured_categories', function () {
-            return Category::with('bannerImage')->where('featured', 1)->get();
+            return Category::with('bannerImage')->where('featured', 1)->where('active', 1)->get();
         });
 
         return view('frontend.' . get_setting('homepage_select') . '.index', compact('featured_categories', 'lang'));
