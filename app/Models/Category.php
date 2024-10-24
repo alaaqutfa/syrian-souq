@@ -86,6 +86,6 @@ class Category extends Model
 
     protected static function isAdminRoute()
     {
-        return str_contains(url()->current(), 'admin');
+        return str_contains(url()->current(), 'admin') || str_contains(url()->current(), 'seller/product/create');
     }
 }
