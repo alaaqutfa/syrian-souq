@@ -426,7 +426,6 @@ class HomeController extends Controller
     {
         $categories = Category::with('childrenCategories')->where('parent_id', 0)->orderBy('order_level', 'desc')->get();
 
-        // dd($categories);
         return view('frontend.all_category', compact('categories'));
     }
 

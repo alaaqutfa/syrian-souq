@@ -240,7 +240,7 @@
                             </del>
                             <!-- Unit -->
                             @if ($detailedProduct->unit != null)
-                                <span class="opacity-70 ml-1">/{{ $detailedProduct->getTranslation('unit') }}</span>
+                                <span class="opacity-70 ml-1 d-none">/{{ $detailedProduct->getTranslation('unit') }}</span>
                             @endif
                             <!-- Discount percentage -->
                             @if (discount_in_percentage($detailedProduct) > 0)
@@ -291,7 +291,7 @@
                             </strong>
                             <!-- Unit -->
                             @if ($detailedProduct->unit != null)
-                                <span class="opacity-70">/{{ $detailedProduct->getTranslation('unit') }}</span>
+                                <span class="opacity-70 d-none">/{{ $detailedProduct->getTranslation('unit') }}</span>
                             @endif
                             <!-- Club Point -->
                             @if (addon_is_activated('club_point') && $detailedProduct->earn_point > 0)
