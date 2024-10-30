@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Shop;
 use App\Models\User;
 use App\Models\BusinessSetting;
+use App\Models\Category;
 use Auth;
 use Hash;
 use App\Notifications\EmailVerificationNotification;
@@ -48,7 +49,11 @@ class ShopController extends Controller
                 return back();
             }
         } else {
-            return view('auth.'.get_setting('authentication_layout_select').'.seller_registration');
+            $categories = Category::where('digital',0)->get();
+            $services = Category::where('digital',1)->get();
+
+            //return $category;
+            return view('auth.'.get_setting('authentication_layout_select').'.seller_registration', compact('categories','services'));
         }
     }
 
@@ -70,6 +75,15 @@ class ShopController extends Controller
             $shop = new Shop;
             $shop->user_id = $user->id;
             $shop->name = $request->shop_name;
+
+            if($request->account_type === 'service') {
+                $shop->type = 1;
+                $shop->type_value = $request->service_id;
+            } else {
+                $shop->type = 0;
+                $shop->type_value = $request->category_id;
+            }
+
             $shop->address = $request->address;
             $shop->slug = preg_replace('/\s+/', '-', str_replace("/", " ", $request->shop_name));
             $shop->save();
