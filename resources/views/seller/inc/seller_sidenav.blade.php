@@ -32,15 +32,17 @@
                         <i class="las la-shopping-cart aiz-side-nav-icon"></i>
                         <span class="aiz-side-nav-text">{{ translate('Products Management') }}</span>
                         <span class="aiz-side-nav-arrow"></span>
-                    </a>
+                    </a>                  
                     <!--Submenu-->
                     <ul class="aiz-side-nav-list level-2">
-                        <li class="aiz-side-nav-item">
-                            <a href="{{ route('seller.products') }}"
-                                class="aiz-side-nav-link {{ areActiveRoutes(['seller.products', 'seller.products.create', 'seller.products.edit']) }}">
-                                <span class="aiz-side-nav-text">{{ translate('Products List') }}</span>
-                            </a>
-                        </li>
+                        @if (optional(Auth::user()->shop)->type == 0)
+                            <li class="aiz-side-nav-item">
+                                <a href="{{ route('seller.products') }}"
+                                    class="aiz-side-nav-link {{ areActiveRoutes(['seller.products', 'seller.products.create', 'seller.products.edit']) }}">
+                                    <span class="aiz-side-nav-text">{{ translate('Products List') }}</span>
+                                </a>
+                            </li>
+                        @endif
 
                         {{-- <li class="aiz-side-nav-item">
                             <a href="{{ route('seller.categories_wise_product_discount') }}"
@@ -55,12 +57,14 @@
                                 <span class="aiz-side-nav-text">{{ translate('Product Bulk Upload') }}</span>
                             </a>
                         </li> --}}
-                        <li class="aiz-side-nav-item">
-                            <a href="{{ route('seller.digitalproducts') }}"
-                                class="aiz-side-nav-link {{ areActiveRoutes(['seller.digitalproducts', 'seller.digitalproducts.create', 'seller.digitalproducts.edit']) }}">
-                                <span class="aiz-side-nav-text">{{ translate('Digital Products') }}</span>
-                            </a>
-                        </li>
+                        @if (optional(Auth::user()->shop)->type == 1)
+                            <li class="aiz-side-nav-item">
+                                <a href="{{ route('seller.digitalproducts') }}"
+                                    class="aiz-side-nav-link {{ areActiveRoutes(['seller.digitalproducts', 'seller.digitalproducts.create', 'seller.digitalproducts.edit']) }}">
+                                    <span class="aiz-side-nav-text">{{ translate('Services') }}</span>
+                                </a>
+                            </li>
+                        @endif
                         <li class="aiz-side-nav-item">
                             <a href="{{ route('seller.reviews') }}"
                                 class="aiz-side-nav-link {{ areActiveRoutes(['seller.reviews']) }}">

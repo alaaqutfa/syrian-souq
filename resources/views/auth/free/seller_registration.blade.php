@@ -93,6 +93,32 @@
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="account_type" class="fs-12 fw-700 text-soft-dark">{{ translate('Account type') }}</label>
+                                                <select id="account_type" class="form-control rounded-0{{ $errors->has('account_type') ? ' is-invalid' : '' }}" name="account_type" required>
+                                                    <option value="commercial">{{ translate('Commercial Account') }}</option>
+                                                    <option value="service">{{ translate('Service Account') }}</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div id="categories" class="form-group" >
+                                                <label for="shop_name" class="fs-12 fw-700 text-soft-dark">{{ translate('Categories') }}</label>
+                                                <select class="form-control" name="category_id">
+                                                    @foreach($categories as $category)
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                     @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div id="services" class="form-group" style="display:none;">
+                                                <label for="shop_name" class="fs-12 fw-700 text-soft-dark">{{ translate('Services') }}</label>
+                                                <select class="form-control" name="service_id">
+                                                    @foreach($services as $service)
+                                                        <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                                     @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label for="address" class="fs-12 fw-700 text-soft-dark">{{  translate('Address') }}</label>
                                                 <input type="text" class="form-control rounded-0{{ $errors->has('address') ? ' is-invalid' : '' }}" value="{{ old('address') }}" placeholder="{{  translate('Address') }}" name="address" required>
                                                 @if ($errors->has('address'))
@@ -165,5 +191,22 @@
             });
         });
         @endif
+
+        document.getElementById('account_type').addEventListener('change', function () {
+        var categories = document.getElementById('categories');
+        var services = document.getElementById('services');
+            
+        if (this.value === 'commercial') {
+            categories.style.display = 'block';
+            services.style.display = 'none';
+        } else if (this.value === 'service') {
+            services.style.display = 'block';
+            categories.style.display = 'none';
+        } else {
+            categories.style.display = 'none';
+            services.style.display = 'none';
+        }
+    });
+
     </script>
 @endsection

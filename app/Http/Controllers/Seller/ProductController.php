@@ -7,6 +7,7 @@ use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
 use App\Models\Cart;
+use App\Models\Shop;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -62,6 +63,9 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
+        $userId = auth()->id();
+        $shop = Shop::where('user_id', $userId)->first(); 
+
         if (addon_is_activated('seller_subscription')) {
             if (!seller_package_validity_check()) {
                 flash(translate('Please upgrade your package.'))->warning();
@@ -70,6 +74,7 @@ class ProductController extends Controller
         }
         $categories = Category::where('parent_id', 0)
             ->where('digital', 0)
+            ->where('id', $shop->type_value)
             ->with('childrenCategories')
             ->get();
         return view('seller.product.products.create', compact('categories'));
