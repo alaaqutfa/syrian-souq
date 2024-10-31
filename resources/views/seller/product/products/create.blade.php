@@ -58,7 +58,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Unit') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" name="unit"
@@ -72,7 +72,7 @@
                                     <input type="number" class="form-control" name="weight" step="0.01" value="0.00"
                                         placeholder="0.00">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Minimum Purchase Qty') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-8">
