@@ -59,6 +59,7 @@
                                     </select>
                                 </div>
                             </div>
+                            @endif
                             {{-- <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Unit') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-8">
@@ -242,14 +243,6 @@
                                         required>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
-                                <div class="col-md-6">
-                                    <input type="number" lang="en" min="0" value="0" step="0.01"
-                                        placeholder="{{ translate('Cost price') }}" name="wholesale_price" class="form-control"
-                                        required>
-                                </div>
-                            </div>
                             
                             <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
@@ -406,42 +399,42 @@
                     </div>
 
                     {{-- Frequently Bought Products --}}
-                    <div class="card">
-                        <div class="card-header">
-                            {{-- <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5> --}}
-                        </div>
-                        <div class="w-100">
-                            <div class="d-flex my-3">
-                                {{-- <div class="align-items-center d-flex mar-btm ml-4 mr-5 radio">
+                    {{-- <div class="card"> --}}
+                        {{-- <div class="card-header">
+                            <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5>
+                        </div> --}}
+                        {{-- <div class="w-100"> --}}
+                            {{-- <div class="d-flex my-3">
+                                <div class="align-items-center d-flex mar-btm ml-4 mr-5 radio">
                                     <input id="fq_bought_select_products" type="radio" name="frequently_bought_selection_type" value="product" onchange="fq_bought_product_selection_type()" checked >
                                     <label for="fq_bought_select_products" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Product')}}</label>
-                                </div> --}}
-                                {{-- <div class="radio mar-btm mr-3 d-flex align-items-center">
+                                </div> 
+                                <div class="radio mar-btm mr-3 d-flex align-items-center">
                                     <input id="fq_bought_select_category" type="radio" name="frequently_bought_selection_type" value="category" onchange="fq_bought_product_selection_type()">
                                     <label for="fq_bought_select_category" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Category')}}</label>
-                                </div> --}}
-                            </div>
+                                </div>
+                            </div> --}}
 
-                            <div class="px-3 px-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="fq_bought_select_product_div">
+                            {{-- <div class="px-3 px-md-4"> --}}
+                                {{-- <div class="card"> --}}
+                                    {{-- <div class="card-body"> --}}
+                                        {{-- <div class="fq_bought_select_product_div">
 
                                             <div id="selected-fq-bought-products">
 
                                             </div>
 
-                                            {{-- <button
+                                            <button
                                                 type="button"
                                                 class="btn btn-block border border-dashed hov-bg-soft-secondary fs-14 rounded-0 d-flex align-items-center justify-content-center"
                                                 onclick="showFqBoughtProductModal()">
                                                 <i class="las la-plus"></i>
                                                 <span class="ml-2">{{ translate('Add More') }}</span>
-                                            </button> --}}
-                                        </div>
+                                            </button>
+                                        </div> --}}
 
                                         {{-- Select Category for Frequently Bought Product --}}
-                                        <div class="fq_bought_select_category_div d-none">
+                                         {{-- <div class="fq_bought_select_category_div d-none">
                                             <div class="form-group row">
                                                 <label class="col-md-2 col-from-label">{{translate('Category')}}</label>
                                                 <div class="col-md-10">
@@ -455,13 +448,12 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        </div> --}}
+                                    {{-- </div> --}}
+                                {{-- </div> --}}
+                            {{-- </div> --}}
+                        {{-- </div> --}}
+                    {{-- </div> --}}
                 </div>
 
                 <div class="col-lg-4">
