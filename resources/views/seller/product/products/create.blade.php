@@ -59,12 +59,7 @@
                                     </select>
                                 </div>
                             </div>
-<<<<<<< HEAD
-                            @endif
-                            <div class="form-group row">
-=======
                             {{-- <div class="form-group row">
->>>>>>> 9d3c6b9777c86e0642f88cc1b5cb923ff0f01f37
                                 <label class="col-md-3 col-from-label">{{ translate('Unit') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" name="unit"
