@@ -243,10 +243,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Wholesale price') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-6">
                                     <input type="number" lang="en" min="0" value="0" step="0.01"
-                                        placeholder="{{ translate('Wholesale price') }}" name="wholesale_price" class="form-control"
+                                        placeholder="{{ translate('Cost price') }}" name="wholesale_price" class="form-control"
                                         required>
                                 </div>
                             </div>

@@ -101,7 +101,7 @@
                                             </div>
                                             
                                             <div id="categories" class="form-group" >
-                                                <label for="shop_name" class="fs-12 fw-700 text-soft-dark">{{ translate('Categories') }}</label>
+                                                <label for="shop_name" class="fs-12 fw-700 text-soft-dark">{{ translate('Category type') }}</label>
                                                 <select class="form-control" name="category_id">
                                                     @foreach($categories as $category)
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>

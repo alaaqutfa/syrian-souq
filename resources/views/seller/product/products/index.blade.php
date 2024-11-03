@@ -95,7 +95,7 @@
                             {{-- <th data-breakpoints="md">{{ translate('Category')}}</th> --}}
                             <th data-breakpoints="md">{{ translate('Current Qty')}}</th>
                             <th>{{ translate('Base Price')}}</th>
-                            <th>{{ translate('Wholesale Price')}}</th>
+                            <th>{{ translate('Cost Price')}}</th>
                             @if(get_setting('product_approve_by_admin') == 1)
                                 <th data-breakpoints="md">{{ translate('Approval')}}</th>
                             @endif
