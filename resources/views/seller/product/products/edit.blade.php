@@ -52,6 +52,7 @@
                                 required>
                         </div>
                     </div>
+                    @if (\App\Models\Brand::count() > 0)
                     <div class="form-group row" id="brand">
                         <label class="col-lg-3 col-from-label">{{translate('Brand')}}</label>
                         <div class="col-lg-8">
@@ -64,6 +65,7 @@
                             </select>
                         </div>
                     </div>
+                    @endif
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">{{translate('Unit')}} <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i></label>
                         <div class="col-lg-8">
@@ -86,14 +88,14 @@
                                 required>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-lg-3 col-from-label">{{translate('Tags')}}</label>
                         <div class="col-lg-8">
                             <input type="text" class="form-control aiz-tag-input" name="tags[]" id="tags"
                                 value="{{ $product->tags }}" placeholder="{{ translate('Type to add a tag') }}"
                                 data-role="tagsinput">
                         </div>
-                    </div>
+                    </div> --}}
 
                     @if (addon_is_activated('pos_system'))
                     <div class="form-group row">
@@ -160,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">{{translate('Product Videos')}}</h5>
                 </div>
@@ -187,7 +189,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">{{translate('Product Variation')}}</h5>
@@ -274,6 +276,14 @@
                                 value="{{$product->unit_price}}" required>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="number" min="0" step="0.01"
+                                placeholder="{{ translate('Cost price') }}" name="wholesale_price" class="form-control"
+                                value="{{$product->wholesale_price}}" required>
+                        </div>
+                    </div>
 
                     @php
                         $date_range = '';
@@ -315,16 +325,16 @@
                                     placeholder="{{translate('Quantity')}}" name="current_stock" class="form-control">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label class="col-md-3 col-from-label">
                                 {{translate('SKU')}}
                             </label>
                             <div class="col-md-6">
                                 <input type="text" placeholder="{{ translate('SKU') }}" value="{{ $product->stocks->first()->sku }}" name="sku" class="form-control">
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-md-3 col-from-label">
                             {{translate('External link')}}
                         </label>
@@ -332,8 +342,8 @@
                             <input type="text" placeholder="{{ translate('External link') }}" name="external_link" value="{{ $product->external_link }}" class="form-control">
                             <small class="text-muted">{{translate('Leave it blank if you do not use external site link')}}</small>
                         </div>
-                    </div>
-                    <div class="form-group row">
+                    </div> --}}
+                    {{-- <div class="form-group row">
                         <label class="col-md-3 col-from-label">
                             {{translate('External link button text')}}
                         </label>
@@ -341,8 +351,7 @@
                             <input type="text" placeholder="{{ translate('External link button text') }}" name="external_link_btn" value="{{ $product->external_link_btn }}" class="form-control">
                             <small class="text-muted">{{translate('Leave it blank if you do not use external site link')}}</small>
                         </div>
-                    </div>
-                    <br>
+                    </div> --}}
                     <div class="sku_combination" id="sku_combination">
 
                     </div>
@@ -354,16 +363,16 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-lg-3 col-from-label">{{translate('Description')}} <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i></label>
-                        <div class="col-lg-9">
-                            <textarea class="aiz-text-editor"
-                                name="description">{{$product->getTranslation('description',$lang)}}</textarea>
+                        {{-- <label class="col-lg-3 col-from-label">{{translate('Description')}} <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i></label> --}}
+                        <div class="col-md-12">
+                            <textarea class="aiz-text-editor w-100"
+                                name="description"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">{{translate('PDF Specification')}}</h5>
                 </div>
@@ -384,7 +393,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">{{translate('SEO Meta Tags')}}</h5>
@@ -398,7 +407,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-lg-3 col-from-label">{{translate('Description')}}</label>
+                        <label class="col-lg-3 col-from-label">{{translate('meta description')}}</label>
                         <div class="col-lg-8">
                             <textarea name="meta_description" rows="8"
                                 class="form-control">{{ $product->meta_description }}</textarea>
@@ -432,11 +441,11 @@
             {{-- Frequently Bought Products --}}
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5>
+                    {{-- <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5> --}}
                 </div>
                 <div class="w-100">
                     <div class="d-flex my-3">
-                        <div class="radio mar-btm mr-5 ml-4 d-flex align-items-center">
+                        {{-- <div class="radio mar-btm mr-5 ml-4 d-flex align-items-center">
                             <input
                                 id="fq_bought_select_products"
                                 type="radio"
@@ -446,8 +455,8 @@
                                 @if($product->frequently_bought_selection_type == 'product') checked @endif
                             >
                             <label for="fq_bought_select_products" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Product')}}</label>
-                        </div>
-                        <div class="radio mar-btm mr-3 d-flex align-items-center">
+                        </div> --}}
+                        {{-- <div class="radio mar-btm mr-3 d-flex align-items-center">
                             <input
                                 id="fq_bought_select_category"
                                 type="radio"
@@ -457,7 +466,7 @@
                                 @if($product->frequently_bought_selection_type == 'category') checked @endif
                             >
                             <label for="fq_bought_select_category" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Category')}}</label>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="px-3 px-md-4">
@@ -509,13 +518,13 @@
                                         @endif
                                     </div>
 
-                                    <button
+                                    {{-- <button
                                         type="button"
                                         class="btn btn-block border border-dashed hov-bg-soft-secondary fs-14 rounded-0 d-flex align-items-center justify-content-center"
                                         onclick="showFqBoughtProductModal()">
                                         <i class="las la-plus"></i>
                                         <span class="ml-2">{{ translate('Add More') }}</span>
-                                    </button>
+                                    </button> --}}
                                 </div>
 
                                 {{-- Select Category for Frequently Bought Product --}}
@@ -582,7 +591,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_2">
                         {{translate('Shipping Configuration')}}
@@ -639,7 +648,7 @@
                     </p>
                     @endif
                 </div>
-            </div>
+            </div> --}}
 
             <div class="card">
                 <div class="card-header">
@@ -656,7 +665,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">
                         {{translate('Stock Visibility State')}}
@@ -699,9 +708,9 @@
                     </div>
 
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">{{translate('Cash On Delivery')}}</h5>
                 </div>
@@ -727,9 +736,9 @@
                     </p>
                     @endif
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">{{translate('Estimate Shipping Time')}}</h5>
                 </div>
@@ -747,9 +756,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0 h6">{{translate('VAT & Tax')}}</h5>
                 </div>
@@ -789,7 +798,7 @@
                     </div>
                     @endforeach
                 </div>
-            </div>
+            </div> --}}
         </div>
         <div class="col-12">
             <div class="mar-all text-right mb-2">
