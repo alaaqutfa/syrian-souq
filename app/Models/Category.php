@@ -85,7 +85,7 @@ class Category extends Model
     }
 
     protected static function isAdminRoute()
-    {
-        return str_contains(url()->current(), 'admin') || str_contains(url()->current(), 'seller');
+    {  
+        return str_contains(url()->current(), 'admin') || str_contains(url()->current(), 'seller') || str_contains(url()->current(), 'shops');
     }
 }

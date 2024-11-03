@@ -285,6 +285,15 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="number" min="0" step="0.01"
+                                placeholder="{{ translate('Cost price') }}" name="wholesale_price" class="form-control"
+                                value="{{$product->wholesale_price}}" required>
+                        </div>
+                    </div>
+
                     @php
                         $date_range = '';
                         if($product->discount_start_date){

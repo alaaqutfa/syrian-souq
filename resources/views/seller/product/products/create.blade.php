@@ -59,8 +59,12 @@
                                     </select>
                                 </div>
                             </div>
+<<<<<<< HEAD
                             @endif
                             <div class="form-group row">
+=======
+                            {{-- <div class="form-group row">
+>>>>>>> 9d3c6b9777c86e0642f88cc1b5cb923ff0f01f37
                                 <label class="col-md-3 col-from-label">{{ translate('Unit') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" name="unit"
@@ -74,7 +78,7 @@
                                     <input type="number" class="form-control" name="weight" step="0.01" value="0.00"
                                         placeholder="0.00">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Minimum Purchase Qty') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-8">
@@ -252,6 +256,15 @@
                                 </div>
                             </div>
                             
+                            <div class="form-group row">
+                                <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <input type="number" lang="en" min="0" value="0" step="0.01"
+                                        placeholder="{{ translate('Cost price') }}" name="wholesale_price" class="form-control"
+                                        required>
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label class="col-md-3 control-label"
                                     for="start_date">{{ translate('Discount Date Range') }} </label>
