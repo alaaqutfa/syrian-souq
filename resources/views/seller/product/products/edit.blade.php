@@ -66,20 +66,20 @@
                         </div>
                     </div>
                     @endif
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-lg-3 col-from-label">{{translate('Unit')}} <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i></label>
                         <div class="col-lg-8">
                             <input type="text" class="form-control" name="unit"
                                 placeholder="{{ translate('Unit (e.g. KG, Pc etc)') }}"
                                 value="{{$product->getTranslation('unit', $lang)}}" required>
                         </div>
-                    </div>
-                    <div class="form-group row">
+                    </div> --}}
+                    {{-- <div class="form-group row">
                         <label class="col-md-3 col-from-label">{{translate('Weight')}} <small>({{ translate('In Kg') }})</small></label>
                         <div class="col-md-8">
                             <input type="number" class="form-control" name="weight" value="{{ $product->weight }}" step="0.01" placeholder="0.00">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
                         <label class="col-lg-3 col-from-label">{{translate('Minimum Purchase Qty')}}</label>
                         <div class="col-lg-8">
