@@ -621,7 +621,8 @@
     @endif
 
     <!-- Top Brands -->
-    @if (get_setting('top_brands') != null)
+
+    @if (get_setting('top_brands') != null && !empty($top_brands))
         <section class="mb-2 mb-md-3 mt-2 mt-md-3">
             <div class="container">
                 <!-- Top Section -->
