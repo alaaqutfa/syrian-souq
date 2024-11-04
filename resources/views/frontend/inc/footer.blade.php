@@ -159,7 +159,7 @@
                         @if (!empty(get_setting('twitter_link')))
                             <li class="list-inline-item ml-2 mr-2">
                                 <a href="{{ get_setting('twitter_link') }}" target="_blank"
-                                    class="twitter"><i class="lab la-twitter"></i></a>
+                                    class="whatsapp" ><i class="lab la-whatsapp" style="color: #25D366;"></i></a>
                             </li>
                         @endif
                         @if (!empty(get_setting('instagram_link')))
