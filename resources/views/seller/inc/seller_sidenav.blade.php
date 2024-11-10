@@ -74,6 +74,13 @@
                     </ul>
                 </li>
                 <li class="aiz-side-nav-item">
+                    <a href="{{ route('seller.request.index') }}"
+                        class="aiz-side-nav-link">
+                        <i class="las la-folder-open aiz-side-nav-icon"></i>
+                        <span class="aiz-side-nav-text">{{ translate('Add request for open brand or category') }}</span>
+                    </a>
+                </li>
+                <li class="aiz-side-nav-item">
                     <a href="{{ route('seller.uploaded-files.index') }}"
                         class="aiz-side-nav-link {{ areActiveRoutes(['seller.uploaded-files.index', 'seller.uploads.create']) }}">
                         <i class="las la-folder-open aiz-side-nav-icon"></i>
