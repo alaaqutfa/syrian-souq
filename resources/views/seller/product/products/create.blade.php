@@ -243,7 +243,7 @@
                                         required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-6">
@@ -408,7 +408,7 @@
                                 <div class="align-items-center d-flex mar-btm ml-4 mr-5 radio">
                                     <input id="fq_bought_select_products" type="radio" name="frequently_bought_selection_type" value="product" onchange="fq_bought_product_selection_type()" checked >
                                     <label for="fq_bought_select_products" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Product')}}</label>
-                                </div> 
+                                </div>
                                 <div class="radio mar-btm mr-3 d-flex align-items-center">
                                     <input id="fq_bought_select_category" type="radio" name="frequently_bought_selection_type" value="category" onchange="fq_bought_product_selection_type()">
                                     <label for="fq_bought_select_category" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Category')}}</label>
@@ -470,7 +470,7 @@
                             </h6>
                         </div>
                         <div class="card-body">
-                            <div class="h-300px overflow-auto c-scrollbar-light">
+                            {{-- <div class="h-300px overflow-auto c-scrollbar-light">
                                 <ul class="hummingbird-treeview-converter list-unstyled" data-checkbox-name="category_ids[]" data-radio-name="category_id">
                                     @foreach ($categories as $category)
                                     <li id="{{ $category->id }}">{{ $category->getTranslation('name') }}</li>
@@ -479,7 +479,15 @@
                                         @endforeach
                                     @endforeach
                                 </ul>
-                            </div>
+                            </div> --}}
+                            @foreach ($categories as $category)
+                                <input type="hidden" name="category_id" value="{{ $category->id }}" />
+                                @foreach ($category->childrenCategories as $childCategory)
+                                    @include('backend.product.products.child_category', [
+                                        'child_category' => $childCategory,
+                                    ])
+                                @endforeach
+                            @endforeach
                         </div>
                     </div>
                     <div class="card" style="display: none;">
@@ -488,7 +496,7 @@
                                 {{ translate('Shipping Configuration') }}
                             </h5>
                         </div>
-                    
+
                         <div class="card-body">
                             @if (get_setting('shipping_type') == 'product_wise_shipping')
                                 <div class="form-group row">
@@ -500,7 +508,7 @@
                                         </label>
                                     </div>
                                 </div>
-                    
+
                                 <div class="form-group row">
                                     <label class="col-md-6 col-from-label">{{ translate('Flat Rate') }}</label>
                                     <div class="col-md-6">
@@ -510,7 +518,7 @@
                                         </label>
                                     </div>
                                 </div>
-                    
+
                                 <div class="flat_rate_shipping_div" style="display: none">
                                     <div class="form-group row">
                                         <label class="col-md-6 col-from-label">{{ translate('Shipping cost') }}</label>
@@ -521,7 +529,7 @@
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <div class="form-group row">
                                     <label class="col-md-6 col-from-label">{{translate('Is Product Quantity Multiply')}}</label>
                                     <div class="col-md-6">
@@ -538,7 +546,7 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     <script>
                         // تعيين الخيار الافتراضي إلى "Free Shipping"
                         document.addEventListener("DOMContentLoaded", function() {
@@ -548,8 +556,8 @@
                             }
                         });
                     </script>
-                    
-                 
+
+
 
                     <div class="card">
                         <div class="card-header">
@@ -572,7 +580,7 @@
                                 {{ translate('Stock Visibility State') }}
                             </h5>
                         </div>
-                    
+
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-md-6 col-from-label">{{ translate('Show Stock Quantity') }}</label>
@@ -583,7 +591,7 @@
                                     </label>
                                 </div>
                             </div>
-                    
+
                             <div class="form-group row">
                                 <label class="col-md-6 col-from-label">{{ translate('Show Stock With Text Only') }}</label>
                                 <div class="col-md-6">
@@ -593,7 +601,7 @@
                                     </label>
                                 </div>
                             </div>
-                    
+
                             <div class="form-group row">
                                 <label class="col-md-6 col-from-label">{{ translate('Hide Stock') }}</label>
                                 <div class="col-md-6">
@@ -605,7 +613,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <script>
                         // ضبط الخيار الافتراضي إلى "Show Stock Quantity"
                         document.addEventListener("DOMContentLoaded", function() {
@@ -615,7 +623,7 @@
                             }
                         });
                     </script>
-                    
+
 
                     <div class="card" style="display: none;">
                         <div class="card-header">
@@ -639,16 +647,16 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
                             var cashCheckbox = document.getElementById("cashOnDeliveryCheckbox");
                             if (cashCheckbox) {
-                                cashCheckbox.checked = true; 
+                                cashCheckbox.checked = true;
                             }
                         });
                     </script>
-                    
+
 
                     <div class="card" style="display: none;">
                         <div class="card-header">
@@ -669,10 +677,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <script>
-                        // ضبط قيمة وقت الشحن افتراضيًا إلى 1 
-                        //هذا السكريبت لكي اعالج الحالة في الفرونت بدلاً من الباك 
+                        // ضبط قيمة وقت الشحن افتراضيًا إلى 1
+                        //هذا السكريبت لكي اعالج الحالة في الفرونت بدلاً من الباك
                         document.addEventListener("DOMContentLoaded", function() {
                             var shippingInput = document.getElementById("shippingDaysInput");
                             if (shippingInput) {
@@ -680,7 +688,7 @@
                             }
                         });
                     </script>
-                    
+
 
                     {{-- <div class="card">
                         <div class="card-header">
