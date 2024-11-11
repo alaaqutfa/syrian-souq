@@ -365,7 +365,7 @@
     @endif
 
     <!-- Cupon -->
-    @if (get_setting('coupon_system') == 1)
+    {{-- @if (get_setting('coupon_system') == 1)
         <div class=" mt-2 mt-md-3"
             style="background-color: {{ get_setting('cupon_background_color', '#292933') }}">
             <div class="container">
@@ -444,7 +444,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     <!-- Category wise Products -->
     <div id="section_home_categories" style="background: #f5f5fa;">
@@ -621,7 +621,8 @@
     @endif
 
     <!-- Top Brands -->
-    @if (get_setting('top_brands') != null)
+
+    @if (get_setting('top_brands') != null && !empty($top_brands))
         <section class="mb-2 mb-md-3 mt-2 mt-md-3">
             <div class="container">
                 <!-- Top Section -->

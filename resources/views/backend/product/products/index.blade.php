@@ -169,6 +169,7 @@
             {{ translate('times') }} </br>
             <strong>{{ translate('Base Price') }}:</strong>
             {{ single_price($product->unit_price) }} </br>
+            <strong>{{ translate('Cost Price') }}:</strong> {{ single_price($product->wholesale_price) }} </br>
             <strong>{{ translate('Rating') }}:</strong> {{ $product->rating }} </br>
         </td>
         <td>

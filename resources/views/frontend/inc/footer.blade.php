@@ -170,11 +170,17 @@
                         @endif
                     
                         @if (!empty(get_setting('twitter_link')))
+<<<<<<< HEAD
                             <li class="list-inline-item" style="list-style: none;">
                                 <a href="{{ get_setting('twitter_link') }}" target="_blank" class="twitter"
                                    style="display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; background: #1da1f2; color: white; font-size: 20px; transition: all 0.3s ease; text-decoration: none;">
                                     <i class="lab la-twitter"></i>
                                 </a>
+=======
+                            <li class="list-inline-item ml-2 mr-2">
+                                <a href="{{ get_setting('twitter_link') }}" target="_blank"
+                                    class="whatsapp" ><i class="lab la-whatsapp" style="color: #25D366;"></i></a>
+>>>>>>> 8b14c3fa74a7a69a4f07659d78ebf2755652bdfc
                             </li>
                         @endif
                     

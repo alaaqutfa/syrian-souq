@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddonController;
 use App\Http\Controllers\Admin\Report\EarningReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SellerRequestController;
 use App\Http\Controllers\AizUploadController;
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\BlogCategoryController;
@@ -178,6 +179,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'prevent-ba
     Route::controller(PaymentController::class)->group(function () {
         Route::get('/seller/payments', 'payment_histories')->name('sellers.payment_histories');
         Route::get('/seller/payments/show/{id}', 'show')->name('sellers.payment_history');
+    });
+
+    // Seller Requests
+    Route::controller(SellerRequestController::class)->group(function () {
+        Route::get('/seller/requests', 'index')->name('sellers.requests.index');
+        Route::post('/seller/request/approved', 'updateApproval')->name('seller.requests.approved');
+        Route::get('/seller/requests/{id}', 'destroy')->name('sellers.request.destroy');
     });
 
     // Seller Withdraw Request

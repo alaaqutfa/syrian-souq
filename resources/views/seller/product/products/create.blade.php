@@ -8,7 +8,7 @@
                     <h1 class="h3">{{ translate('Add Your Product') }}</h1>
                 </div>
                 <div class="col text-right">
-                    <a class="btn btn-xs btn-soft-primary" href="javascript:void(0);" onclick="clearTempdata()">
+                    <a class="btn btn-xs btn-soft-primary" href="javascript:void(0);" onclick="location.reload();">
                         {{ translate('Clear Tempdata') }}
                     </a>
                 </div>
@@ -59,6 +59,7 @@
                                     </select>
                                 </div>
                             </div>
+                            @endif
                             {{-- <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Unit') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-8">
@@ -88,7 +89,7 @@
                                         placeholder="{{ translate('Type and hit enter to add a tag') }}">
                                 </div>
                             </div> --}}
-                            @if (addon_is_activated('pos_system'))
+                            {{-- @if (addon_is_activated('pos_system'))
                                 <div class="form-group row">
                                     <label class="col-md-3 col-from-label">{{ translate('Barcode') }}</label>
                                     <div class="col-md-8">
@@ -107,7 +108,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                     <div class="card">
@@ -242,15 +243,7 @@
                                         required>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
-                                <div class="col-md-6">
-                                    <input type="number" lang="en" min="0" value="0" step="0.01"
-                                        placeholder="{{ translate('Cost price') }}" name="wholesale_price" class="form-control"
-                                        required>
-                                </div>
-                            </div>
-                            
+
                             <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
                                 <div class="col-md-6">
@@ -406,42 +399,42 @@
                     </div>
 
                     {{-- Frequently Bought Products --}}
-                    <div class="card">
-                        <div class="card-header">
-                            {{-- <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5> --}}
-                        </div>
-                        <div class="w-100">
-                            <div class="d-flex my-3">
-                                {{-- <div class="align-items-center d-flex mar-btm ml-4 mr-5 radio">
+                    {{-- <div class="card"> --}}
+                        {{-- <div class="card-header">
+                            <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5>
+                        </div> --}}
+                        {{-- <div class="w-100"> --}}
+                            {{-- <div class="d-flex my-3">
+                                <div class="align-items-center d-flex mar-btm ml-4 mr-5 radio">
                                     <input id="fq_bought_select_products" type="radio" name="frequently_bought_selection_type" value="product" onchange="fq_bought_product_selection_type()" checked >
                                     <label for="fq_bought_select_products" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Product')}}</label>
-                                </div> --}}
-                                {{-- <div class="radio mar-btm mr-3 d-flex align-items-center">
+                                </div>
+                                <div class="radio mar-btm mr-3 d-flex align-items-center">
                                     <input id="fq_bought_select_category" type="radio" name="frequently_bought_selection_type" value="category" onchange="fq_bought_product_selection_type()">
                                     <label for="fq_bought_select_category" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Category')}}</label>
-                                </div> --}}
-                            </div>
+                                </div>
+                            </div> --}}
 
-                            <div class="px-3 px-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="fq_bought_select_product_div">
+                            {{-- <div class="px-3 px-md-4"> --}}
+                                {{-- <div class="card"> --}}
+                                    {{-- <div class="card-body"> --}}
+                                        {{-- <div class="fq_bought_select_product_div">
 
                                             <div id="selected-fq-bought-products">
 
                                             </div>
 
-                                            {{-- <button
+                                            <button
                                                 type="button"
                                                 class="btn btn-block border border-dashed hov-bg-soft-secondary fs-14 rounded-0 d-flex align-items-center justify-content-center"
                                                 onclick="showFqBoughtProductModal()">
                                                 <i class="las la-plus"></i>
                                                 <span class="ml-2">{{ translate('Add More') }}</span>
-                                            </button> --}}
-                                        </div>
+                                            </button>
+                                        </div> --}}
 
                                         {{-- Select Category for Frequently Bought Product --}}
-                                        <div class="fq_bought_select_category_div d-none">
+                                         {{-- <div class="fq_bought_select_category_div d-none">
                                             <div class="form-group row">
                                                 <label class="col-md-2 col-from-label">{{translate('Category')}}</label>
                                                 <div class="col-md-10">
@@ -455,13 +448,12 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        </div> --}}
+                                    {{-- </div> --}}
+                                {{-- </div> --}}
+                            {{-- </div> --}}
+                        {{-- </div> --}}
+                    {{-- </div> --}}
                 </div>
 
                 <div class="col-lg-4">
@@ -478,7 +470,7 @@
                             </h6>
                         </div>
                         <div class="card-body">
-                            <div class="h-300px overflow-auto c-scrollbar-light">
+                            {{-- <div class="h-300px overflow-auto c-scrollbar-light">
                                 <ul class="hummingbird-treeview-converter list-unstyled" data-checkbox-name="category_ids[]" data-radio-name="category_id">
                                     @foreach ($categories as $category)
                                     <li id="{{ $category->id }}">{{ $category->getTranslation('name') }}</li>
@@ -487,7 +479,15 @@
                                         @endforeach
                                     @endforeach
                                 </ul>
-                            </div>
+                            </div> --}}
+                            @foreach ($categories as $category)
+                                <input type="hidden" name="category_id" value="{{ $category->id }}" />
+                                @foreach ($category->childrenCategories as $childCategory)
+                                    @include('backend.product.products.child_category', [
+                                        'child_category' => $childCategory,
+                                    ])
+                                @endforeach
+                            @endforeach
                         </div>
                     </div>
                     <div class="card" style="display: none;">
@@ -496,7 +496,7 @@
                                 {{ translate('Shipping Configuration') }}
                             </h5>
                         </div>
-                    
+
                         <div class="card-body">
                             @if (get_setting('shipping_type') == 'product_wise_shipping')
                                 <div class="form-group row">
@@ -508,7 +508,7 @@
                                         </label>
                                     </div>
                                 </div>
-                    
+
                                 <div class="form-group row">
                                     <label class="col-md-6 col-from-label">{{ translate('Flat Rate') }}</label>
                                     <div class="col-md-6">
@@ -518,7 +518,7 @@
                                         </label>
                                     </div>
                                 </div>
-                    
+
                                 <div class="flat_rate_shipping_div" style="display: none">
                                     <div class="form-group row">
                                         <label class="col-md-6 col-from-label">{{ translate('Shipping cost') }}</label>
@@ -529,7 +529,7 @@
                                         </div>
                                     </div>
                                 </div>
-                    
+
                                 <div class="form-group row">
                                     <label class="col-md-6 col-from-label">{{translate('Is Product Quantity Multiply')}}</label>
                                     <div class="col-md-6">
@@ -546,7 +546,7 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     <script>
                         // تعيين الخيار الافتراضي إلى "Free Shipping"
                         document.addEventListener("DOMContentLoaded", function() {
@@ -556,8 +556,8 @@
                             }
                         });
                     </script>
-                    
-                 
+
+
 
                     <div class="card">
                         <div class="card-header">
@@ -580,7 +580,7 @@
                                 {{ translate('Stock Visibility State') }}
                             </h5>
                         </div>
-                    
+
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-md-6 col-from-label">{{ translate('Show Stock Quantity') }}</label>
@@ -591,7 +591,7 @@
                                     </label>
                                 </div>
                             </div>
-                    
+
                             <div class="form-group row">
                                 <label class="col-md-6 col-from-label">{{ translate('Show Stock With Text Only') }}</label>
                                 <div class="col-md-6">
@@ -601,7 +601,7 @@
                                     </label>
                                 </div>
                             </div>
-                    
+
                             <div class="form-group row">
                                 <label class="col-md-6 col-from-label">{{ translate('Hide Stock') }}</label>
                                 <div class="col-md-6">
@@ -613,7 +613,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <script>
                         // ضبط الخيار الافتراضي إلى "Show Stock Quantity"
                         document.addEventListener("DOMContentLoaded", function() {
@@ -623,7 +623,7 @@
                             }
                         });
                     </script>
-                    
+
 
                     <div class="card" style="display: none;">
                         <div class="card-header">
@@ -647,16 +647,16 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     <script>
                         document.addEventListener("DOMContentLoaded", function() {
                             var cashCheckbox = document.getElementById("cashOnDeliveryCheckbox");
                             if (cashCheckbox) {
-                                cashCheckbox.checked = true; 
+                                cashCheckbox.checked = true;
                             }
                         });
                     </script>
-                    
+
 
                     <div class="card" style="display: none;">
                         <div class="card-header">
@@ -677,10 +677,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <script>
-                        // ضبط قيمة وقت الشحن افتراضيًا إلى 1 
-                        //هذا السكريبت لكي اعالج الحالة في الفرونت بدلاً من الباك 
+                        // ضبط قيمة وقت الشحن افتراضيًا إلى 1
+                        //هذا السكريبت لكي اعالج الحالة في الفرونت بدلاً من الباك
                         document.addEventListener("DOMContentLoaded", function() {
                             var shippingInput = document.getElementById("shippingDaysInput");
                             if (shippingInput) {
@@ -688,7 +688,7 @@
                             }
                         });
                     </script>
-                    
+
 
                     {{-- <div class="card">
                         <div class="card-header">
@@ -725,7 +725,6 @@
                     </div>
                 </div>
             </div>
-
         </form>
     </div>
 @endsection
