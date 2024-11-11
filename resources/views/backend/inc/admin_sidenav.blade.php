@@ -606,6 +606,15 @@
                                         </a>
                                     </li>
                                 @endcan
+                                @can('seller_payment_history')
+                                    <li class="aiz-side-nav-item">
+                                        <a href="{{ route('sellers.requests.index') }}"
+                                            class="aiz-side-nav-link">
+                                            <i class="las la-folder-open aiz-side-nav-icon"></i>
+                                            <span class="aiz-side-nav-text">{{ translate('Requests for open brand or category') }}</span>
+                                        </a>
+                                    </li>
+                                @endcan
                                 @can('view_seller_payout_requests')
                                     <li class="aiz-side-nav-item">
                                         <a href="{{ route('withdraw_requests_all') }}" class="aiz-side-nav-link">
