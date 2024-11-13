@@ -8,7 +8,7 @@
                     <h1 class="h3">{{ translate('Add Your Product') }}</h1>
                 </div>
                 <div class="col text-right">
-                    <a class="btn btn-xs btn-soft-primary" href="javascript:void(0);" onclick="clearTempdata()">
+                    <a class="btn btn-xs btn-soft-primary" href="javascript:void(0);" onclick="location.reload();">
                         {{ translate('Clear Tempdata') }}
                     </a>
                 </div>
@@ -89,7 +89,7 @@
                                         placeholder="{{ translate('Type and hit enter to add a tag') }}">
                                 </div>
                             </div> --}}
-                            @if (addon_is_activated('pos_system'))
+                            {{-- @if (addon_is_activated('pos_system'))
                                 <div class="form-group row">
                                     <label class="col-md-3 col-from-label">{{ translate('Barcode') }}</label>
                                     <div class="col-md-8">
@@ -108,7 +108,7 @@
                                         </label>
                                     </div>
                                 </div>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                     <div class="card">
@@ -725,7 +725,6 @@
                     </div>
                 </div>
             </div>
-
         </form>
     </div>
 @endsection
