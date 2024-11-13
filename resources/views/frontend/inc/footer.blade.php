@@ -147,7 +147,7 @@
     style="border-color: #3d3d46 !important; background-color: #212129 !important;">
     <div class="container">
         <!-- footer logo -->
-        {{-- <div class="mt-3 mb-4">
+        <div class="mt-3 mb-4">
             <a href="{{ route('home') }}" class="d-block">
                 @if (get_setting('footer_logo') != null)
                     <img class="lazyload h-45px" src="{{ static_asset('assets/img/placeholder-rect.jpg') }}"
@@ -157,7 +157,7 @@
                         data-src="{{ static_asset('assets/img/logo.png') }}" alt="{{ env('APP_NAME') }}">
                 @endif
             </a>
-        </div> --}}
+        </div>
 
         <div class="row">
             <!-- about & subscription -->
