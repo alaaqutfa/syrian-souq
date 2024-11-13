@@ -454,12 +454,7 @@
                                                 <i class="lab la-google opacity-60"></i>
                                             </a>
                                         </li>
-                                        <li class="list-inline-item mr-2">
-                                            <a href="{{ $detailedProduct->user->shop->twitter }}" class="twitter"
-                                                target="_blank">
-                                                <i class="lab la-twitter opacity-60"></i>
-                                            </a>
-                                        </li>
+                                       
                                         <li class="list-inline-item">
                                             <a href="{{ $detailedProduct->user->shop->youtube }}" class="youtube"
                                                 target="_blank">
@@ -625,7 +620,7 @@
 
                                     @if (count($detailedProduct->reviews) <= 0)
                                         <div class="text-center fs-18 opacity-70">
-                                            {{ translate('There have been no reviews for this product yet.') }}
+                                            {{ translate('malik') }}
                                         </div>
                                     @endif
                                 </div>
