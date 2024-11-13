@@ -896,13 +896,13 @@
                                         </a>
                                     </li>
                                 @endif
-                                @if (get_setting('twitter_login') == 1)
+                                {{-- @if (get_setting('twitter_login') == 1)
                                     <li class="list-inline-item">
                                         <a href="{{ route('social.login', ['provider' => 'twitter']) }}" class="twitter">
                                             <i class="lab la-twitter"></i>
                                         </a>
                                     </li>
-                                @endif
+                                @endif --}}
                                 @if (get_setting('apple_login') == 1)
                                     <li class="list-inline-item">
                                         <a href="{{ route('social.login', ['provider' => 'apple']) }}" class="apple">
