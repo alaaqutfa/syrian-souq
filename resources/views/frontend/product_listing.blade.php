@@ -54,7 +54,7 @@
                                 </div>
 
                                 <!-- Categories -->
-                                <div class="bg-white border mb-3">
+                                {{-- <div class="bg-white border mb-3">
                                     <div class="fs-16 fw-700 p-3">
                                         <a href="#collapse_1" class="dropdown-toggle filter-section text-dark d-flex align-items-center justify-content-between" data-toggle="collapse">
                                             {{ translate('Categories')}}
@@ -102,10 +102,10 @@
                                             @endif
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- Price range -->
-                                <div class="bg-white border mb-3">
+                                {{-- <div class="bg-white border mb-3">
                                     <div class="fs-16 fw-700 p-3">
                                         {{ translate('Price range')}}
                                     </div>
@@ -151,10 +151,10 @@
                                     <!-- Hidden Items -->
                                     <input type="hidden" name="min_price" value="">
                                     <input type="hidden" name="max_price" value="">
-                                </div>
+                                </div> --}}
                                 
                                 <!-- Attributes -->
-                                @foreach ($attributes as $attribute)
+                                {{-- @foreach ($attributes as $attribute)
                                     <div class="bg-white border mb-3">
                                         <div class="fs-16 fw-700 p-3">
                                             <a href="#" class="dropdown-toggle text-dark filter-section collapsed d-flex align-items-center justify-content-between" 
@@ -187,7 +187,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @endforeach --}}
                                     
                                 <!-- Color -->
                                 @if (get_setting('color_filter_activation'))
@@ -239,11 +239,11 @@
                             </li>
                             @if(!isset($category_id))
                                 <li class="breadcrumb-item fw-700  text-dark">
-                                    "{{ translate('All Categories')}}"
+                                    "{{ translate('All Products')}}"
                                 </li>
                             @else
                                 <li class="breadcrumb-item opacity-50 hov-opacity-100">
-                                    <a class="text-reset" href="{{ route('search') }}">{{ translate('All Categories')}}</a>
+                                    <a class="text-reset" href="{{ route('search') }}">{{ translate('All Products')}}</a>
                                 </li>
                             @endif
                             @if(isset($category_id))

@@ -121,7 +121,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
 
     //All Products Page
-    Route::get('/allproducts', 'allproducts')->name('allproducts');
+    Route::get('/products', 'allproducts')->name('allproducts');
 
     Route::post('/home/section/featured', 'load_featured_section')->name('home.section.featured');
     Route::post('/home/section/todays-deal', 'load_todays_deal_section')->name('home.section.todays_deal');
