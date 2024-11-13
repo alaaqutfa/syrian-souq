@@ -925,7 +925,7 @@
     		$('#share').share({
     			showLabel: false,
                 showCount: false,
-                shares: ["email", "twitter", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
+                shares: ["email", "facebook", "linkedin", "pinterest", "stumbleupon", "whatsapp"]
     		});
     	});
 
