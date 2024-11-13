@@ -60,16 +60,18 @@
             <div class="card shadow-none mb-4 bg-primary py-4">
                 <div class="card-body">
                     <div class="row align-items-center">
-                        <div class="col">
-                            <p class="small text-muted mb-0">
-                                <span class="fe fe-arrow-down fe-12"></span>
-                                <span class="fs-14 text-light">{{ translate('Products') }}</span>
-                            </p>
-                            <h3 class="mb-0 text-white fs-30">
-                                {{ \App\Models\Product::where('user_id', Auth::user()->id)->count() }}
-                            </h3>
-
-                        </div>
+                        <a href="{{ route('seller.products') }}" style="text-decoration: none;">
+                            <div class="col cursor-pointer">
+                                <p class="small text-muted mb-0">
+                                    <span class="fe fe-arrow-down fe-12"></span>
+                                    <span class="fs-14 text-light">{{ translate('Products') }}</span>
+                                </p>
+                                <h3 class="mb-0 text-white fs-30">
+                                    {{ \App\Models\Product::where('user_id', Auth::user()->id)->count() }}
+                                </h3>
+                            </div>
+                        </a>
+                        
                         <div class="col-auto text-right">
                             <svg xmlns="http://www.w3.org/2000/svg" width="64.001" height="64" viewBox="0 0 64.001 64">
                                 <path id="Path_66" data-name="Path 66"
