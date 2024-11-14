@@ -28,6 +28,12 @@
                     </div>
                 </div>
                 <div class="row mb-3">
+                    <label class="col-md-2 col-form-label">{{ translate('Shop Category') }}</label>
+                    <div class="col-md-10">
+                        <div class="form-control-plaintext">{{ $category->getTranslation('name') }}</div>
+                    </div>
+                </div>
+                <div class="row mb-3">
                     <label class="col-md-2 col-form-label">{{ translate('Shop Logo') }}<span class="text-danger text-danger">*</span></label>
                     <div class="col-md-10">
                         <div class="input-group" data-toggle="aizuploader" data-type="image">
