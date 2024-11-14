@@ -474,8 +474,8 @@
                     <div class="my-n4 py-1 text-center">
                         <img src="{{ static_asset('assets/img/non_verified.png') }}" alt=""
                             class="w-xxl-130px w-90px d-block">
-                        <a href="{{ route('seller.shop.verify') }}"
-                            class="btn btn-sm btn-primary">{{ translate('Verify Now') }}</a>
+                        {{-- <a href="{{ route('seller.shop.verify') }}"
+                            class="btn btn-sm btn-primary">{{ translate('Verify Now') }}</a> --}}
                     </div>
                 @else
                     <div class="my-2 py-1">
