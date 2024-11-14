@@ -175,7 +175,7 @@
                             </div>
                         </div>
                     </div> --}}
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0 h6">{{ translate('Product Variation') }}</h5>
                         </div>
@@ -229,7 +229,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="card">
                         <div class="card-header">
                             <h5 class="mb-0 h6">{{ translate('Product price + stock') }}</h5>
