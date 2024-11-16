@@ -481,7 +481,7 @@
                                 </ul>
                             </div> --}}
                             @foreach ($categories as $category)
-                                <input type="hidden" name="category_id" value="{{ $category->id }}" />
+                                <input type="hidden" name="category_ids" value="{{ $category->id }}" />
                                 @foreach ($category->childrenCategories as $childCategory)
                                     @include('backend.product.products.child_category', [
                                         'child_category' => $childCategory,

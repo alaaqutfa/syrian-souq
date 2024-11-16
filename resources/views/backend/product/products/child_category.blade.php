@@ -15,7 +15,7 @@
     <label for="category_ids[{{ $childCategory->id }}]">
         {{ $childCategory->getTranslation('name') }}
     </label>
-    <input type="radio" name="category_ids[]" id="category_ids[{{ $childCategory->id }}]"
+    <input type="radio" name="category_id" id="category_ids[{{ $childCategory->id }}]"
         value="{{ $childCategory->id }}" />
 </div>
 @if ($child_category->childrenCategories)

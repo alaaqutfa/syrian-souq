@@ -64,7 +64,7 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         $userId = auth()->id();
-        $shop = Shop::where('user_id', $userId)->first(); 
+        $shop = Shop::where('user_id', $userId)->first();
 
         if (addon_is_activated('seller_subscription')) {
             if (!seller_package_validity_check()) {
@@ -122,7 +122,7 @@ class ProductController extends Controller
 
         if (get_setting('product_approve_by_admin') == 1) {
             $users = User::findMany(User::where('user_type', 'admin')->first()->id);
-            
+
             $data = array();
             $data['product_type']   = 'physical';
             $data['status']         = 'pending';
@@ -144,7 +144,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $userId = auth()->id();
-        $shop = Shop::where('user_id', $userId)->first(); 
+        $shop = Shop::where('user_id', $userId)->first();
 
         if (Auth::user()->id != $product->user_id) {
             flash(translate('This product is not yours.'))->warning();
@@ -193,7 +193,7 @@ class ProductController extends Controller
         $this->frequentlyBoughtProductService->store($request->only([
             'product_id', 'frequently_bought_selection_type', 'fq_bought_product_ids', 'fq_bought_product_category_id'
         ]));
-        
+
         // Product Translations
         ProductTranslation::updateOrCreate(
             $request->only([
@@ -342,7 +342,7 @@ class ProductController extends Controller
                 'category_id' => $product_category->category_id,
             ]);
         }
-        
+
         flash(translate('Product has been duplicated successfully'))->success();
         return redirect()->route('seller.products');
     }
@@ -363,7 +363,7 @@ class ProductController extends Controller
         $product->frequently_bought_products()->delete();
         $product->last_viewed_products()->delete();
         $product->flash_deal_products()->delete();
-        
+
         if (Product::destroy($id)) {
             Cart::where('product_id', $id)->delete();
             Wishlist::where('product_id', $id)->delete();
@@ -412,9 +412,9 @@ class ProductController extends Controller
         $categories = $categories->paginate(15);
         return view('seller.product.category_wise_discount.set_discount', compact('categories', 'sort_search'));
     }
-    
+
     public function setProductDiscount(Request $request)
-    {   
+    {
         $response = $this->productService->setCategoryWiseDiscount($request->except(['_token']));
         return $response;
     }
