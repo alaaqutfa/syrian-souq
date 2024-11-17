@@ -90,7 +90,7 @@ class ProductController extends Controller
         }
 
         $product = $this->productService->store($request->except([
-            '_token', 'sku', 'choice', 'tax_id', 'tax', 'tax_type', 'flash_deal_id', 'flash_discount', 'flash_discount_type'
+            '_token', 'sku', 'choice', 'tax_id', 'tax_value', 'tax_types', 'flash_deal_id', 'flash_discount', 'flash_discount_type'
         ]));
         $request->merge(['product_id' => $product->id]);
 
@@ -100,7 +100,7 @@ class ProductController extends Controller
         //VAT & Tax
         if ($request->tax_id) {
             $this->productTaxService->store($request->only([
-                'tax_id', 'tax', 'tax_type', 'product_id'
+                'tax_id', 'tax_value', 'tax_types', 'product_id'
             ]));
         }
 
@@ -165,7 +165,7 @@ class ProductController extends Controller
     {
         //Product
         $product = $this->productService->update($request->except([
-            '_token', 'sku', 'choice', 'tax_id', 'tax', 'tax_type', 'flash_deal_id', 'flash_discount', 'flash_discount_type'
+            '_token', 'sku', 'choice', 'tax_id', 'tax', 'tax_types', 'flash_deal_id', 'flash_discount', 'flash_discount_type'
         ]), $product);
 
         $request->merge(['product_id' => $product->id]);
@@ -184,7 +184,7 @@ class ProductController extends Controller
             $product->taxes()->delete();
             $request->merge(['product_id' => $product->id]);
             $this->productTaxService->store($request->only([
-                'tax_id', 'tax', 'tax_type', 'product_id'
+                'tax_id', 'tax_value', 'tax_types', 'product_id'
             ]));
         }
 

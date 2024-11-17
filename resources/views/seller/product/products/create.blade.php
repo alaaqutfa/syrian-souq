@@ -494,7 +494,7 @@
                                 </ul>
                             </div> --}}
                             @foreach ($categories as $category)
-                                <input type="hidden" name="category_ids" value="{{ $category->id }}" />
+                                <input type="hidden" name="category_id" value="{{ $category->id }}" />
                                 @foreach ($category->childrenCategories as $childCategory)
                                     @include('backend.product.products.child_category', [
                                         'child_category' => $childCategory,
@@ -714,8 +714,8 @@
                         <div class="tax_{{ $tax->id }}">
                             <input type="hidden" name="tax_name" value="{{ $tax->name }}">
                             <input type="hidden" name="tax_id[]" value="{{ $tax->id }}">
-                            <input type="hidden" name="tax_value" value="{{ $tax->tax_value }}">
-                            <input type="hidden" name="tax_type" value="{{ $tax->tax_type }}"> {{-- amount , percent --}}
+                            <input type="hidden" name="tax_value[]" value="{{ $tax->tax_value }}">
+                            <input type="hidden" name="tax_types[]" value="{{ $tax->tax_type }}"> {{-- amount , percent --}}
                         </div>
                     @endforeach
                 </div>
@@ -777,21 +777,21 @@
                 success: function(data) {
                     var obj = JSON.parse(data);
                     $('#customer_choice_options').append('\
-                                                    <div class="form-group row">\
-                                                        <div class="col-md-3">\
-                                                            <input type="hidden" name="choice_no[]" value="' + i +
+                                                        <div class="form-group row">\
+                                                            <div class="col-md-3">\
+                                                                <input type="hidden" name="choice_no[]" value="' + i +
                         '">\
-                                                            <input type="text" class="form-control" name="choice[]" value="' +
+                                                                <input type="text" class="form-control" name="choice[]" value="' +
                         name +
                         '" placeholder="{{ translate('Choice Title') }}" readonly>\
-                                                        </div>\
-                                                        <div class="col-md-8">\
-                                                            <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' +
+                                                            </div>\
+                                                            <div class="col-md-8">\
+                                                                <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' +
                         i + '[]" multiple>\
-                                                                ' + obj + '\
-                                                            </select>\
-                                                        </div>\
-                                                    </div>');
+                                                                    ' + obj + '\
+                                                                </select>\
+                                                            </div>\
+                                                        </div>');
                     AIZ.plugins.bootstrapSelect('refresh');
                 }
             });
