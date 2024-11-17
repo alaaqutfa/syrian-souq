@@ -36,9 +36,9 @@
                     if ($product['digital'] == 1) {
                         $digital = 1;
                     }
-                    if ($product['cash_on_delivery'] == 0) {
-                        $cod_on = 0;
-                    }
+                    // if ($product['cash_on_delivery'] == 0) {
+                    //     $cod_on = 0;
+                    // }
                 }
             @endphp
             @if ($digital != 1 && $cod_on == 1)

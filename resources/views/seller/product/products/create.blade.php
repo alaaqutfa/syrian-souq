@@ -29,7 +29,8 @@
         <!-- Data type -->
         <input type="hidden" id="data_type" value="physical">
 
-        <form class="" action="{{ route('seller.products.store') }}" method="POST" enctype="multipart/form-data" id="choice_form">
+        <form class="" action="{{ route('seller.products.store') }}" method="POST" enctype="multipart/form-data"
+            id="choice_form">
             <div class="row gutters-5">
                 <div class="col-lg-8">
                     @csrf
@@ -40,25 +41,27 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Product Name') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">{{ translate('Product Name') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" name="name"
                                         placeholder="{{ translate('Product Name') }}" onchange="update_sku()" required>
                                 </div>
                             </div>
                             @if (\App\Models\Brand::count() > 0)
-                            <div class="form-group row" id="brand">
-                                <label class="col-md-3 col-from-label">{{ translate('Brand') }}</label>
-                                <div class="col-md-8">
-                                    <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id"
-                                        data-live-search="true">
-                                        <option value="">{{ translate('Select Brand') }}</option>
-                                        @foreach (\App\Models\Brand::all() as $brand)
-                                            <option value="{{ $brand->id }}">{{ $brand->getTranslation('name') }}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="form-group row" id="brand">
+                                    <label class="col-md-3 col-from-label">{{ translate('Brand') }}</label>
+                                    <div class="col-md-8">
+                                        <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id"
+                                            data-live-search="true">
+                                            <option value="">{{ translate('Select Brand') }}</option>
+                                            @foreach (\App\Models\Brand::all() as $brand)
+                                                <option value="{{ $brand->id }}">{{ $brand->getTranslation('name') }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                             {{-- <div class="form-group row">
                                 <label class="col-md-3 col-from-label">{{ translate('Unit') }} <span class="text-danger">*</span></label>
@@ -76,7 +79,8 @@
                                 </div>
                             </div> --}}
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Minimum Purchase Qty') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">{{ translate('Minimum Purchase Qty') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="col-md-8">
                                     <input type="number" lang="en" class="form-control" name="min_qty" value="1"
                                         min="1" required>
@@ -117,7 +121,8 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="signinSrEmail">{{ translate('Gallery Images') }}</label>
+                                <label class="col-md-3 col-form-label"
+                                    for="signinSrEmail">{{ translate('Gallery Images') }}</label>
                                 <div class="col-md-8">
                                     <div class="input-group" data-toggle="aizuploader" data-type="image"
                                         data-multiple="true">
@@ -130,11 +135,13 @@
                                     </div>
                                     <div class="file-preview box sm">
                                     </div>
-                                    <small class="text-muted">{{translate('These images are visible in product details page gallery. Minimum dimensions required: 900px width X 900px height.')}}</small>
+                                    <small
+                                        class="text-muted">{{ translate('These images are visible in product details page gallery. Minimum dimensions required: 900px width X 900px height.') }}</small>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-3 col-form-label" for="signinSrEmail">{{ translate('Thumbnail Image') }}</label>
+                                <label class="col-md-3 col-form-label"
+                                    for="signinSrEmail">{{ translate('Thumbnail Image') }}</label>
                                 <div class="col-md-8">
                                     <div class="input-group" data-toggle="aizuploader" data-type="image">
                                         <div class="input-group-prepend">
@@ -146,7 +153,8 @@
                                     </div>
                                     <div class="file-preview box sm">
                                     </div>
-                                    <small class="text-muted">{{translate("This image is visible in all product box. Minimum dimensions required: 195px width X 195px height. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.")}}</small>
+                                    <small
+                                        class="text-muted">{{ translate('This image is visible in all product box. Minimum dimensions required: 195px width X 195px height. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.') }}</small>
                                 </div>
                             </div>
                         </div>
@@ -236,20 +244,22 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Unit price') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">{{ translate('Unit price') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="col-md-6">
                                     <input type="number" lang="en" min="0" value="0" step="0.01"
-                                        placeholder="{{ translate('Unit price') }}" name="unit_price" class="form-control"
-                                        required>
+                                        placeholder="{{ translate('Unit price') }}" name="unit_price"
+                                        class="form-control" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">{{ translate('Cost price') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="col-md-6">
                                     <input type="number" lang="en" min="0" value="0" step="0.01"
-                                        placeholder="{{ translate('Cost price') }}" name="wholesale_price" class="form-control"
-                                        required>
+                                        placeholder="{{ translate('Cost price') }}" name="wholesale_price"
+                                        class="form-control" required>
                                 </div>
                             </div>
 
@@ -264,7 +274,8 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('Discount') }} <span class="text-danger">*</span></label>
+                                <label class="col-md-3 col-from-label">{{ translate('Discount') }} <span
+                                        class="text-danger">*</span></label>
                                 <div class="col-md-6">
                                     <input type="number" lang="en" min="0" value="0" step="0.01"
                                         placeholder="{{ translate('Discount') }}" name="discount" class="form-control"
@@ -280,11 +291,12 @@
 
                             <div id="show-hide-div">
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-from-label">{{ translate('Quantity') }} <span class="text-danger">*</span></label>
+                                    <label class="col-md-3 col-from-label">{{ translate('Quantity') }} <span
+                                            class="text-danger">*</span></label>
                                     <div class="col-md-6">
-                                        <input type="number" lang="en" min="0" value="0" step="1"
-                                            placeholder="{{ translate('Quantity') }}" name="current_stock"
-                                            class="form-control" required>
+                                        <input type="number" lang="en" min="0" value="0"
+                                            step="1" placeholder="{{ translate('Quantity') }}"
+                                            name="current_stock" class="form-control" required>
                                     </div>
                                 </div>
                                 {{-- <div class="form-group row">
@@ -400,11 +412,11 @@
 
                     {{-- Frequently Bought Products --}}
                     {{-- <div class="card"> --}}
-                        {{-- <div class="card-header">
+                    {{-- <div class="card-header">
                             <h5 class="mb-0 h6">{{ translate('Frequently Bought') }}</h5>
                         </div> --}}
-                        {{-- <div class="w-100"> --}}
-                            {{-- <div class="d-flex my-3">
+                    {{-- <div class="w-100"> --}}
+                    {{-- <div class="d-flex my-3">
                                 <div class="align-items-center d-flex mar-btm ml-4 mr-5 radio">
                                     <input id="fq_bought_select_products" type="radio" name="frequently_bought_selection_type" value="product" onchange="fq_bought_product_selection_type()" checked >
                                     <label for="fq_bought_select_products" class="fs-14 fw-500 mb-0 ml-2">{{translate('Select Product')}}</label>
@@ -415,10 +427,10 @@
                                 </div>
                             </div> --}}
 
-                            {{-- <div class="px-3 px-md-4"> --}}
-                                {{-- <div class="card"> --}}
-                                    {{-- <div class="card-body"> --}}
-                                        {{-- <div class="fq_bought_select_product_div">
+                    {{-- <div class="px-3 px-md-4"> --}}
+                    {{-- <div class="card"> --}}
+                    {{-- <div class="card-body"> --}}
+                    {{-- <div class="fq_bought_select_product_div">
 
                                             <div id="selected-fq-bought-products">
 
@@ -433,8 +445,8 @@
                                             </button>
                                         </div> --}}
 
-                                        {{-- Select Category for Frequently Bought Product --}}
-                                         {{-- <div class="fq_bought_select_category_div d-none">
+                    {{-- Select Category for Frequently Bought Product --}}
+                    {{-- <div class="fq_bought_select_category_div d-none">
                                             <div class="form-group row">
                                                 <label class="col-md-2 col-from-label">{{translate('Category')}}</label>
                                                 <div class="col-md-10">
@@ -449,10 +461,10 @@
                                                 </div>
                                             </div>
                                         </div> --}}
-                                    {{-- </div> --}}
-                                {{-- </div> --}}
-                            {{-- </div> --}}
-                        {{-- </div> --}}
+                    {{-- </div> --}}
+                    {{-- </div> --}}
+                    {{-- </div> --}}
+                    {{-- </div> --}}
                     {{-- </div> --}}
                 </div>
 
@@ -465,7 +477,8 @@
                                 {{ translate('Select Main') }}
                                 <span class="position-relative main-category-info-icon">
                                     <i class="las la-question-circle fs-18 text-info"></i>
-                                    <span class="main-category-info bg-soft-info p-2 position-absolute d-none border">{{ translate('This will be used for commission based calculations and homepage category wise product Show.') }}</span>
+                                    <span
+                                        class="main-category-info bg-soft-info p-2 position-absolute d-none border left-0">{{ translate('This will be used for commission based calculations and homepage category wise product Show.') }}</span>
                                 </span>
                             </h6>
                         </div>
@@ -503,7 +516,8 @@
                                     <label class="col-md-6 col-from-label">{{ translate('Free Shipping') }}</label>
                                     <div class="col-md-6">
                                         <label class="aiz-switch aiz-switch-success mb-0">
-                                            <input type="radio" name="shipping_type" value="free" id="freeShippingRadio" checked>
+                                            <input type="radio" name="shipping_type" value="free"
+                                                id="freeShippingRadio" checked>
                                             <span></span>
                                         </label>
                                     </div>
@@ -531,7 +545,8 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-md-6 col-from-label">{{translate('Is Product Quantity Multiply')}}</label>
+                                    <label
+                                        class="col-md-6 col-from-label">{{ translate('Is Product Quantity Multiply') }}</label>
                                     <div class="col-md-6">
                                         <label class="aiz-switch aiz-switch-success mb-0">
                                             <input type="checkbox" name="is_quantity_multiplied" value="1">
@@ -586,14 +601,16 @@
                                 <label class="col-md-6 col-from-label">{{ translate('Show Stock Quantity') }}</label>
                                 <div class="col-md-6">
                                     <label class="aiz-switch aiz-switch-success mb-0">
-                                        <input type="radio" name="stock_visibility_state" value="quantity" id="stockQuantity" checked>
+                                        <input type="radio" name="stock_visibility_state" value="quantity"
+                                            id="stockQuantity" checked>
                                         <span></span>
                                     </label>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-6 col-from-label">{{ translate('Show Stock With Text Only') }}</label>
+                                <label
+                                    class="col-md-6 col-from-label">{{ translate('Show Stock With Text Only') }}</label>
                                 <div class="col-md-6">
                                     <label class="aiz-switch aiz-switch-success mb-0">
                                         <input type="radio" name="stock_visibility_state" value="text">
@@ -635,7 +652,8 @@
                                     <label class="col-md-6 col-from-label">{{ translate('Status') }}</label>
                                     <div class="col-md-6">
                                         <label class="aiz-switch aiz-switch-success mb-0">
-                                            <input type="checkbox" name="cash_on_delivery" value="1" id="cashOnDeliveryCheckbox" checked="">
+                                            <input type="checkbox" name="cash_on_delivery" value="1"
+                                                id="cashOnDeliveryCheckbox" checked="">
                                             <span></span>
                                         </label>
                                     </div>
@@ -669,9 +687,11 @@
                                 </label>
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="est_shipping_days" min="1"
-                                        step="1" placeholder="{{ translate('Shipping Days') }}" id="shippingDaysInput">
+                                        step="1" placeholder="{{ translate('Shipping Days') }}"
+                                        id="shippingDaysInput">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend">{{ translate('Days') }}</span>
+                                        <span class="input-group-text"
+                                            id="inputGroupPrepend">{{ translate('Days') }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -689,34 +709,15 @@
                         });
                     </script>
 
-
-                    {{-- <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('VAT & Tax') }}</h5>
+                    <!-- VAT & Tax -->
+                    @foreach (\App\Models\Tax::where('tax_status', 1)->get() as $tax)
+                        <div class="tax_{{ $tax->id }}">
+                            <input type="hidden" name="tax_name" value="{{ $tax->name }}">
+                            <input type="hidden" name="tax_id[]" value="{{ $tax->id }}">
+                            <input type="hidden" name="tax_value" value="{{ $tax->tax_value }}">
+                            <input type="hidden" name="tax_type" value="{{ $tax->tax_type }}"> {{-- amount , percent --}}
                         </div>
-                        <div class="card-body">
-                            @foreach (\App\Models\Tax::where('tax_status', 1)->get() as $tax)
-                                <label for="name">
-                                    {{ $tax->name }}
-                                    <input type="hidden" value="{{ $tax->id }}" name="tax_id[]">
-                                </label>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <input type="number" lang="en" min="0" value="0" step="0.01"
-                                            placeholder="{{ translate('Tax') }}" name="tax[]" class="form-control"
-                                            required>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <select class="form-control aiz-selectpicker" name="tax_type[]">
-                                            <option value="amount">{{ translate('Flat') }}</option>
-                                            <option value="percent">{{ translate('Percent') }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div> --}}
+                    @endforeach
                 </div>
                 <div class="col-12">
                     <div class="mar-all text-right mb-2">
@@ -730,180 +731,192 @@
 @endsection
 
 @section('modal')
-	<!-- Frequently Bought Product Select Modal -->
+    <!-- Frequently Bought Product Select Modal -->
     @include('modals.product_select_modal')
 @endsection
 
 @section('script')
-<!-- Treeview js -->
-<script src="{{ static_asset('assets/js/hummingbird-treeview.js') }}"></script>
+    <!-- Treeview js -->
+    <script src="{{ static_asset('assets/js/hummingbird-treeview.js') }}"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#treeview").hummingbird();
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#treeview").hummingbird();
 
-        $('#treeview input:checkbox').on("click", function (){
-            let $this = $(this);
-            if ($this.prop('checked') && ($('#treeview input:radio:checked').length == 0)) {
-                let val = $this.val();
-                $('#treeview input:radio[value='+val+']').prop('checked',true);
-            }
+            $('#treeview input:checkbox').on("click", function() {
+                let $this = $(this);
+                if ($this.prop('checked') && ($('#treeview input:radio:checked').length == 0)) {
+                    let val = $this.val();
+                    $('#treeview input:radio[value=' + val + ']').prop('checked', true);
+                }
+            });
         });
-    });
 
-    $("[name=shipping_type]").on("change", function() {
-        $(".product_wise_shipping_div").hide();
-        $(".flat_rate_shipping_div").hide();
-        if ($(this).val() == 'product_wise') {
-            $(".product_wise_shipping_div").show();
+        $("[name=shipping_type]").on("change", function() {
+            $(".product_wise_shipping_div").hide();
+            $(".flat_rate_shipping_div").hide();
+            if ($(this).val() == 'product_wise') {
+                $(".product_wise_shipping_div").show();
+            }
+            if ($(this).val() == 'flat_rate') {
+                $(".flat_rate_shipping_div").show();
+            }
+
+        });
+
+        function add_more_customer_choice_option(i, name) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: '{{ route('seller.products.add-more-choice-option') }}',
+                data: {
+                    attribute_id: i
+                },
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    $('#customer_choice_options').append('\
+                                                    <div class="form-group row">\
+                                                        <div class="col-md-3">\
+                                                            <input type="hidden" name="choice_no[]" value="' + i +
+                        '">\
+                                                            <input type="text" class="form-control" name="choice[]" value="' +
+                        name +
+                        '" placeholder="{{ translate('Choice Title') }}" readonly>\
+                                                        </div>\
+                                                        <div class="col-md-8">\
+                                                            <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' +
+                        i + '[]" multiple>\
+                                                                ' + obj + '\
+                                                            </select>\
+                                                        </div>\
+                                                    </div>');
+                    AIZ.plugins.bootstrapSelect('refresh');
+                }
+            });
+
+
         }
-        if ($(this).val() == 'flat_rate') {
-            $(".flat_rate_shipping_div").show();
-        }
 
-    });
-
-    function add_more_customer_choice_option(i, name) {
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: "POST",
-            url: '{{ route('seller.products.add-more-choice-option') }}',
-            data: {
-                attribute_id: i
-            },
-            success: function(data) {
-                var obj = JSON.parse(data);
-                $('#customer_choice_options').append('\
-                    <div class="form-group row">\
-                        <div class="col-md-3">\
-                            <input type="hidden" name="choice_no[]" value="' + i + '">\
-                            <input type="text" class="form-control" name="choice[]" value="' + name +
-                    '" placeholder="{{ translate('Choice Title') }}" readonly>\
-                        </div>\
-                        <div class="col-md-8">\
-                            <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' + i + '[]" multiple>\
-                                ' + obj + '\
-                            </select>\
-                        </div>\
-                    </div>');
+        $('input[name="colors_active"]').on('change', function() {
+            if (!$('input[name="colors_active"]').is(':checked')) {
+                $('#colors').prop('disabled', true);
+                AIZ.plugins.bootstrapSelect('refresh');
+            } else {
+                $('#colors').prop('disabled', false);
                 AIZ.plugins.bootstrapSelect('refresh');
             }
-        });
-
-
-    }
-
-    $('input[name="colors_active"]').on('change', function() {
-        if (!$('input[name="colors_active"]').is(':checked')) {
-            $('#colors').prop('disabled', true);
-            AIZ.plugins.bootstrapSelect('refresh');
-        } else {
-            $('#colors').prop('disabled', false);
-            AIZ.plugins.bootstrapSelect('refresh');
-        }
-        update_sku();
-    });
-
-    $(document).on("change", ".attribute_choice", function() {
-        update_sku();
-    });
-
-    $('#colors').on('change', function() {
             update_sku();
         });
 
-    $('input[name="unit_price"]').on('keyup', function() {
-        update_sku();
-    });
+        $(document).on("change", ".attribute_choice", function() {
+            update_sku();
+        });
 
-    // $('input[name="name"]').on('keyup', function() {
-    //     update_sku();
-    // });
+        $('#colors').on('change', function() {
+            update_sku();
+        });
 
-    function delete_row(em) {
-        $(em).closest('.form-group row').remove();
-        update_sku();
-    }
+        $('input[name="unit_price"]').on('keyup', function() {
+            update_sku();
+        });
 
-    function delete_variant(em) {
-        $(em).closest('.variant').remove();
-    }
+        // $('input[name="name"]').on('keyup', function() {
+        //     update_sku();
+        // });
 
-    function update_sku() {
-        $.ajax({
-            type: "POST",
-            url: '{{ route('seller.products.sku_combination') }}',
-            data: $('#choice_form').serialize(),
-            success: function(data) {
-                $('#sku_combination').html(data);
-                AIZ.uploader.previewGenerate();
-                AIZ.plugins.sectionFooTable('#sku_combination');
-                if (data.trim().length > 1) {
-                    $('#show-hide-div').hide();
-                } else {
-                    $('#show-hide-div').show();
+        function delete_row(em) {
+            $(em).closest('.form-group row').remove();
+            update_sku();
+        }
+
+        function delete_variant(em) {
+            $(em).closest('.variant').remove();
+        }
+
+        function update_sku() {
+            $.ajax({
+                type: "POST",
+                url: '{{ route('seller.products.sku_combination') }}',
+                data: $('#choice_form').serialize(),
+                success: function(data) {
+                    $('#sku_combination').html(data);
+                    AIZ.uploader.previewGenerate();
+                    AIZ.plugins.sectionFooTable('#sku_combination');
+                    if (data.trim().length > 1) {
+                        $('#show-hide-div').hide();
+                    } else {
+                        $('#show-hide-div').show();
+                    }
                 }
+            });
+        }
+
+        $('#choice_attributes').on('change', function() {
+            $('#customer_choice_options').html(null);
+            $.each($("#choice_attributes option:selected"), function() {
+                add_more_customer_choice_option($(this).val(), $(this).text());
+            });
+            update_sku();
+        });
+
+        function fq_bought_product_selection_type() {
+            var productSelectionType = $("input[name='frequently_bought_selection_type']:checked").val();
+            if (productSelectionType == 'product') {
+                $('.fq_bought_select_product_div').removeClass('d-none');
+                $('.fq_bought_select_category_div').addClass('d-none');
+            } else if (productSelectionType == 'category') {
+                $('.fq_bought_select_category_div').removeClass('d-none');
+                $('.fq_bought_select_product_div').addClass('d-none');
             }
-        });
-    }
-
-    $('#choice_attributes').on('change', function() {
-        $('#customer_choice_options').html(null);
-        $.each($("#choice_attributes option:selected"), function() {
-            add_more_customer_choice_option($(this).val(), $(this).text());
-        });
-        update_sku();
-    });
-
-    function fq_bought_product_selection_type(){
-        var productSelectionType = $("input[name='frequently_bought_selection_type']:checked").val();
-        if(productSelectionType == 'product'){
-            $('.fq_bought_select_product_div').removeClass('d-none');
-            $('.fq_bought_select_category_div').addClass('d-none');
         }
-        else if(productSelectionType == 'category'){
-            $('.fq_bought_select_category_div').removeClass('d-none');
-            $('.fq_bought_select_product_div').addClass('d-none');
+
+        function showFqBoughtProductModal() {
+            $('#fq-bought-product-select-modal').modal('show', {
+                backdrop: 'static'
+            });
         }
-    }
 
-    function showFqBoughtProductModal() {
-        $('#fq-bought-product-select-modal').modal('show', {backdrop: 'static'});
-    }
+        function filterFqBoughtProduct() {
+            var searchKey = $('input[name=search_keyword]').val();
+            var fqBroughCategory = $('select[name=fq_brough_category]').val();
+            $.post('{{ route('seller.product.search') }}', {
+                _token: AIZ.data.csrf,
+                product_id: null,
+                search_key: searchKey,
+                category: fqBroughCategory,
+                product_type: "physical"
+            }, function(data) {
+                $('#product-list').html(data);
+                AIZ.plugins.sectionFooTable('#product-list');
+            });
+        }
 
-    function filterFqBoughtProduct() {
-        var searchKey = $('input[name=search_keyword]').val();
-        var fqBroughCategory = $('select[name=fq_brough_category]').val();
-        $.post('{{ route('seller.product.search') }}', { _token: AIZ.data.csrf, product_id: null, search_key:searchKey, category:fqBroughCategory, product_type:"physical" }, function(data){
-            $('#product-list').html(data);
-            AIZ.plugins.sectionFooTable('#product-list');
-        });
-    }
+        function addFqBoughtProduct() {
+            var selectedProducts = [];
+            $("input:checkbox[name=fq_bought_product_id]:checked").each(function() {
+                selectedProducts.push($(this).val());
+            });
 
-    function addFqBoughtProduct() {
-        var selectedProducts = [];
-        $("input:checkbox[name=fq_bought_product_id]:checked").each(function() {
-            selectedProducts.push($(this).val());
-        });
+            var fqBoughtProductIds = [];
+            $("input[name='fq_bought_product_ids[]']").each(function() {
+                fqBoughtProductIds.push($(this).val());
+            });
 
-        var fqBoughtProductIds = [];
-        $("input[name='fq_bought_product_ids[]']").each(function() {
-            fqBoughtProductIds.push($(this).val());
-        });
+            var productIds = selectedProducts.concat(fqBoughtProductIds.filter((item) => selectedProducts.indexOf(item) <
+                0))
 
-        var productIds = selectedProducts.concat(fqBoughtProductIds.filter((item) => selectedProducts.indexOf(item) < 0))
+            $.post('{{ route('seller.get-selected-products') }}', {
+                _token: AIZ.data.csrf,
+                product_ids: productIds
+            }, function(data) {
+                $('#fq-bought-product-select-modal').modal('hide');
+                $('#selected-fq-bought-products').html(data);
+                AIZ.plugins.sectionFooTable('#selected-fq-bought-products');
+            });
+        }
+    </script>
 
-        $.post('{{ route('seller.get-selected-products') }}', { _token: AIZ.data.csrf, product_ids:productIds}, function(data){
-            $('#fq-bought-product-select-modal').modal('hide');
-            $('#selected-fq-bought-products').html(data);
-            AIZ.plugins.sectionFooTable('#selected-fq-bought-products');
-        });
-    }
-
-</script>
-
-@include('partials.product.product_temp_data')
-
+    @include('partials.product.product_temp_data')
 @endsection

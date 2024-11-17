@@ -44,6 +44,8 @@ class TaxController extends Controller
     {
         $tax = new Tax;
         $tax->name = $request->name;
+        $tax->tax_type = $request->tax_type;
+        $tax->tax_value = $request->tax_value;
         //        $pickup_point->address = $request->address;
 
         if ($tax->save()) {
@@ -90,6 +92,8 @@ class TaxController extends Controller
     {
         $tax = Tax::findOrFail($id);
         $tax->name = $request->name;
+        $tax->tax_type = $request->tax_type;
+        $tax->tax_value = $request->tax_value;
         //        $language->code = $request->code;
         if ($tax->save()) {
             flash(translate('Tax has been updated successfully'))->success();

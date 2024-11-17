@@ -30,8 +30,8 @@ class ProductRequest extends FormRequest
         $rules = [];
 
         $rules['name']          = 'required|max:255';
-        $rules['category_ids']  = 'required';
-        $rules['category_id']   = 'required';
+        // $rules['category_ids']  = 'required';
+        // $rules['category_id']   = 'required';
         $rules['unit']         = 'sometimes|required';
         $rules['min_qty']      = 'sometimes|required|numeric';
         $rules['unit_price']    = 'sometimes|required|numeric|gt:0';
