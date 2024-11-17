@@ -8,7 +8,7 @@
                     <h1 class="h3">{{ translate('Add Your Product') }}</h1>
                 </div>
                 <div class="col text-right">
-                    <a class="btn btn-xs btn-soft-primary" href="javascript:void(0);" onclick="location.reload();">
+                    <a class="btn btn-xs btn-soft-primary" href="javascript:void(0);" onclick="clearTempdata()">
                         {{ translate('Clear Tempdata') }}
                     </a>
                 </div>
