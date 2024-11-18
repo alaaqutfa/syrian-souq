@@ -1,6 +1,10 @@
 @extends('seller.layouts.app')
 
 @section('panel_content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+
 <div class="aiz-titlebar mt-2 mb-4">
     <div class="row align-items-center">
         <div class="col-md-6">
@@ -264,30 +268,31 @@
                 <hr>
                 <ul class="list-group">
                     @foreach (\App\Models\Category::all() as $key => $category)
-                    @php
-                    $cat_products = \App\Models\Product::where('user_id', Auth::user()->id)
-                    ->where('category_id', $category->id)
-                    ->count();
-                    @endphp
-                    @if ($cat_products > 0)
-                    <li class="d-flex justify-content-between align-items-center my-2 text-primary fs-13">
-                        <span>{{ $category->getTranslation('name') }}</span>
-                        <span class="d-flex align-items-center">
-                            {{ $cat_products }}
-                            <!-- السهم الذي ينقل المستخدم إلى صفحة المنتجات -->
-                            <a href="{{ route('seller.products', ['category_id' => $category->id]) }}"
-                                class="ms-3 text-decoration-none text-primary">
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </span>
-                    </li>
-                    @endif
+                        @php
+                            $cat_products = \App\Models\Product::where('user_id', Auth::user()->id)
+                                            ->where('category_id', $category->id)
+                                            ->count();
+                        @endphp
+                        @if ($cat_products > 0)
+                            <li class="d-flex justify-content-between align-items-center my-3 text-primary fs-14">
+                                <span>{{ $category->getTranslation('name') }}</span>
+                                <span class="d-flex align-items-center">
+                                    <span class="badge bg-secondary me-2">{{ $cat_products }}</span>
+                                    <!-- السهم العصري -->
+                                    <a href="{{ route('seller.products', ['category_id' => $category->id]) }}" 
+                                       class="text-decoration-none text-primary">
+                                        <i class="bi bi-arrow-right-circle fs-18"></i>
+                                    </a>
+                                </span>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
             </div>
         </div>
-
     </div>
+    
+    
     <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="card h-450px mb-0 h-100">
             <div class="card-body">
