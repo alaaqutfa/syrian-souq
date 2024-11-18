@@ -53,6 +53,59 @@
                                     value="{{ $product->getTranslation('name', $lang) }}" required>
                             </div>
                         </div>
+
+                        @php
+                            $hasSubCategories = false;
+                            $old_categories = $product->categories()->pluck('category_id')->toArray();
+                        @endphp 
+                        @foreach ($categories as $category)
+                            @if($category->childrenCategories->isNotEmpty())
+                                @php
+                                    $hasSubCategories = true;
+                                @endphp
+                                @break 
+                            @endif
+                        @endforeach
+                        
+                        @if($hasSubCategories)
+                        @php
+
+                            $old_category_id = $product->categories()->pluck('category_id')->first();
+                        @endphp
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0 h6">{{ translate('Product Category') }}</h5>
+                                <h6 class="float-right fs-13 mb-0">
+                                    {{ translate('Select Main') }}
+                                    <span class="position-relative main-category-info-icon">
+                                        <i class="las la-question-circle fs-18 text-info"></i>
+                                        <span class="main-category-info bg-soft-info p-2 position-absolute d-none border">{{ translate('This will be used for commission based calculations and homepage category wise product Show.') }}</span>
+                                    </span>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                {{-- <div class="h-300px overflow-auto c-scrollbar-light">
+                                    <ul class="hummingbird-treeview-converter list-unstyled" data-checkbox-name="category_ids[]" data-radio-name="category_id">
+                                        @foreach ($categories as $category)
+                                        <li id="{{ $category->id }}">{{ $category->getTranslation('name') }}</li>
+                                            @foreach ($category->childrenCategories as $childCategory)
+                                                @include('backend.product.products.child_category', ['child_category' => $childCategory])
+                                            @endforeach
+                                        @endforeach
+                                    </ul>
+                                </div> --}}
+                                @foreach ($categories as $category)
+                                    <input type="hidden" name="category_ids" value="{{ $category->id }}"/>
+                                    @foreach ($category->childrenCategories as $childCategory)
+                                        @include('backend.product.products.child_category', [
+                                            'child_category' => $childCategory,
+                                        ])
+                                    @endforeach
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+
                         @if (\App\Models\Brand::count() > 0)
                             <div class="form-group row" id="brand">
                                 <label class="col-lg-3 col-from-label">{{ translate('Brand') }}</label>
@@ -82,11 +135,12 @@
                             <input type="number" class="form-control" name="weight" value="{{ $product->weight }}" step="0.01" placeholder="0.00">
                         </div>
                     </div> --}}
+    
                         <div class="form-group row">
                             <label class="col-lg-3 col-from-label">{{ translate('Minimum Purchase Qty') }}</label>
                             <div class="col-lg-8">
                                 <input type="number" lang="en" class="form-control" name="min_qty"
-                                    value="@if ($product->min_qty <= 1) 1 @else {{ $product->min_qty }} @endif"
+                                    value="{{ $product->min_qty }}"
                                     min="1" required>
                             </div>
                         </div>
@@ -165,6 +219,25 @@
                                 </div>
                                 <small
                                     class="text-muted">{{ translate('This image is visible in all product box. Minimum dimensions required: 195px width X 195px height. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.') }}</small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label"
+                                for="signinSrEmail">{{ translate('Meta Images') }}</label>
+                            <div class="col-md-8">
+                                <div class="input-group" data-toggle="aizuploader" data-type="image"
+                                    data-multiple="true">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium">
+                                            {{ translate('Browse') }}
+                                        </div>
+                                    </div>
+                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                    <input type="hidden" name="meta_img" value="{{ $product->meta_img }}"
+                                        class="selected-files">
+                                </div>
+                                <div class="file-preview box sm">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -428,7 +501,7 @@
                     </div>
                 </div>
             </div> --}}
-                <div class="card">
+            <div class="d-none">                    
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{ translate('SEO Meta Tags') }}</h5>
                     </div>
@@ -447,25 +520,6 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label"
-                                for="signinSrEmail">{{ translate('Meta Images') }}</label>
-                            <div class="col-md-8">
-                                <div class="input-group" data-toggle="aizuploader" data-type="image"
-                                    data-multiple="true">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text bg-soft-secondary font-weight-medium">
-                                            {{ translate('Browse') }}
-                                        </div>
-                                    </div>
-                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
-                                    <input type="hidden" name="meta_img" value="{{ $product->meta_img }}"
-                                        class="selected-files">
-                                </div>
-                                <div class="file-preview box sm">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label class="col-lg-3 col-form-label">{{ translate('Slug') }}</label>
                             <div class="col-lg-8">
                                 <input type="text" placeholder="{{ translate('Slug') }}" id="slug"
@@ -473,49 +527,20 @@
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        document.getElementById('product_name').addEventListener('input', function() {
+                            document.getElementById('meta_title').value = this.value;
+                        });
+                    
+                        document.getElementById('product_description').addEventListener('input', function() {
+                            document.getElementById('meta_description').value = this.value;
+                        });
+                    </script>
                 </div>
             </div>
 
             <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0 h6">{{ translate('Product Category') }}</h5>
-                        <h6 class="float-right fs-13 mb-0">
-                            {{ translate('Select Main') }}
-                            <span class="position-relative main-category-info-icon">
-                                <i class="las la-question-circle fs-18 text-info"></i>
-                                <span
-                                    class="main-category-info bg-soft-info p-2 position-absolute d-none border">{{ translate('This will be used for commission based calculations and homepage category wise product Show') }}</span>
-                            </span>
-                        </h6>
-                    </div>
-                    <div class="card-body ">
-                        {{-- <div class="h-300px overflow-auto c-scrollbar-light">
-                            <ul class="hummingbird-treeview-converter list-unstyled" data-checkbox-name="category_ids[]"
-                                data-radio-name="category_id">
-                                @foreach ($categories as $category)
-                                    <li id="{{ $category->id }}">{{ $category->getTranslation('name') }}</li>
-                                    @foreach ($category->childrenCategories as $childCategory)
-                                        @include('backend.product.products.child_category', [
-                                            'child_category' => $childCategory,
-                                        ])
-                                    @endforeach
-                                @endforeach
-                            </ul>
-                        </div> --}}
-                        @php
-                            $old_categories = $product->categories()->pluck('category_id')->toArray();
-                        @endphp
-                        @foreach ($categories as $category)
-                            <input type="hidden" name="category_id" value="{{ $category->id }}" />
-                            @foreach ($category->childrenCategories as $childCategory)
-                                @include('backend.product.products.child_category', [
-                                    'child_category' => $childCategory,
-                                ])
-                            @endforeach
-                        @endforeach
-                    </div>
-                </div>
 
                 {{-- <div class="card">
                 <div class="card-header">
