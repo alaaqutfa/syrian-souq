@@ -30,7 +30,7 @@
                 <div class="row mb-3">
                     <label class="col-md-2 col-form-label">{{ translate('Shop Category') }}</label>
                     <div class="col-md-10">
-                        <div class="form-control-plaintext">{{ $category->getTranslation('name') }}</div>
+                        <div class="form-control-plaintext"></div>
                     </div>
                 </div>
                 <div class="row mb-3">

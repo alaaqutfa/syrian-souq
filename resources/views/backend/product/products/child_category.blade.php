@@ -15,8 +15,9 @@
     <label for="category_ids[{{ $childCategory->id }}]">
         {{ $childCategory->getTranslation('name') }}
     </label>
-    <input type="radio" name="category_ids[]" id="category_ids[{{ $childCategory->id }}]"
-        value="{{ $childCategory->id }}" />
+    <input type="radio" name="category_id" id="category_id[{{ $childCategory->id }}]"
+        value="{{ $childCategory->id }}" @if(isset($product))     
+        @if($childCategory->id == $product->category_id) checked @endif @endif/>
 </div>
 @if ($child_category->childrenCategories)
     @foreach ($child_category->childrenCategories as $childCategory)
