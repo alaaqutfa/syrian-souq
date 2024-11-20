@@ -96,10 +96,10 @@
                             @endif
                         </td>
                         <td>
-                            @php
+                            {{-- @php
                                 $category_products_count = get_count_product_in_category($category->id);
                                 $activate_category = activate_category($category->id,$category_products_count);
-                            @endphp
+                            @endphp --}}
                             <label class="aiz-switch aiz-switch-success mb-0">
                                 <input type="checkbox" onchange="update_active(this)" value="{{ $category->id }}" <?php if($activate_category == 1) echo "checked disabled";?>>
                                 <span></span>
