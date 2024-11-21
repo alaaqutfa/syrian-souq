@@ -109,7 +109,7 @@ class CommissionController extends Controller
                 $orderDetail->payment_status = 'paid';
                 $orderDetail->save();
                 $commission_percentage = 0;
-                
+
                 if(get_setting('vendor_commission_activation')){
                     if (get_setting('category_wise_commission')) {
                         $commission_percentage = $orderDetail->product->main_category->commision_rate;
@@ -122,10 +122,10 @@ class CommissionController extends Controller
                     $admin_commission = ($orderDetail->price * $commission_percentage) / 100;
 
                     if (get_setting('product_manage_by_admin') == 1) {
-                        $seller_earning = ($orderDetail->tax + $orderDetail->price) - $admin_commission;
+                        $seller_earning = $orderDetail->price - $admin_commission;
                         $seller->admin_to_pay += $seller_earning;
                     } else {
-                        $seller_earning = ($orderDetail->tax + $orderDetail->shipping_cost + $orderDetail->price) - $admin_commission;
+                        $seller_earning = ($orderDetail->shipping_cost + $orderDetail->price )- $admin_commission;
                         $seller->admin_to_pay -= $admin_commission;
                     }
 
