@@ -473,7 +473,7 @@
                         <div class="form-group row">
                             {{-- <label class="col-lg-3 col-from-label">{{translate('Description')}} <i class="las la-language text-danger" title="{{translate('Translatable')}}"></i></label> --}}
                             <div class="col-md-12">
-                                <textarea class="aiz-text-editor w-100" name="description"></textarea>
+                                <textarea class="aiz-text-editor w-100" name="description">{{ old('description', $product->description) }}</textarea>
                             </div>
                         </div>
                     </div>
