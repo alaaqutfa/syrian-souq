@@ -9,7 +9,7 @@
                     <h5 class="mb-md-0 h6">{{ translate('Orders') }}</h5>
                 </div>
 
-                <div class="dropdown mb-2 mb-md-0">
+                {{-- <div class="dropdown mb-2 mb-md-0">
                     <button class="btn border dropdown-toggle" type="button" data-toggle="dropdown">
                         {{ translate('Bulk Action') }}
                     </button>
@@ -17,7 +17,7 @@
                         <a class="dropdown-item" href="javascript:void(0)"
                             onclick="order_bulk_export()">{{ translate('Export') }}</a>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-md-3 ml-auto">
                     <select class="form-control aiz-selectpicker"
                         data-placeholder="{{ translate('Filter by Payment Status') }}" name="payment_status"
@@ -93,12 +93,20 @@
                             @foreach ($orders as $key => $order_id)
                                 @php
                                     $order = \App\Models\Order::find($order_id->id);
-                                    if (get_setting('vendor_commission_activation')) {
-                                        $orderCommission = \App\Models\CommissionHistory::where(
-                                            'order_id',
-                                            $order_id->id,
-                                        )->first();
+                                    $grand_total = $order->grand_total;
+                                $seller_earning = 0;
+                                $admin_commission = 0;
+                                if (get_setting('vendor_commission_activation') && $order->commission_calculated) {
+                                    $orderCommissions = \App\Models\CommissionHistory::where(
+                                        'order_id',
+                                        $order->id,
+                                    )->get();
+                                    foreach ($orderCommissions as $key => $orderCommission) {
+                                        $admin_commission += $orderCommission->admin_commission;
+                                        $seller_earning += $orderCommission->seller_earning;
                                     }
+                                    $grand_total = $order->grand_total - $admin_commission;
+                                }
                                 @endphp
                                 @if ($order != null)
                                     <tr>
@@ -131,17 +139,20 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ single_price($order->grand_total) }}
+                                            {{ single_price($grand_total) }}
                                         </td>
                                         @if (get_setting('vendor_commission_activation'))
-                                            <td>
-                                                @if (get_setting('vendor_commission_activation'))
-                                                    {{ single_price($orderCommission->seller_earning) }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                {{ single_price($orderCommission->admin_commission) }}
-                                            </td>
+                                            @if ($order->commission_calculated)
+                                                <td>
+                                                    {{ single_price($seller_earning) }}
+                                                </td>
+                                                <td>
+                                                    {{ single_price($admin_commission) }}
+                                                </td>
+                                            @else
+                                                <td>{{ translate('Not calculated') }}</td>
+                                                <td>{{ translate('Not calculated') }}</td>
+                                            @endif
                                         @endif
                                         <td>
                                             @php
@@ -159,23 +170,23 @@
                                             @endif
                                         </td>
                                         <td class="text-right">
-                                            @if (addon_is_activated('pos_system') && $order->order_from == 'pos')
+                                            {{-- @if (addon_is_activated('pos_system') && $order->order_from == 'pos')
                                                 <a class="btn btn-soft-success btn-icon btn-circle btn-sm"
                                                     href="{{ route('seller.invoice.thermal_printer', $order->id) }}"
                                                     target="_blank" title="{{ translate('Thermal Printer') }}">
                                                     <i class="las la-print"></i>
                                                 </a>
-                                            @endif
+                                            @endif --}}
                                             <a href="{{ route('seller.orders.show', encrypt($order->id)) }}"
                                                 class="btn btn-soft-info btn-icon btn-circle btn-sm"
                                                 title="{{ translate('Order Details') }}">
                                                 <i class="las la-eye"></i>
                                             </a>
-                                            <a href="{{ route('seller.invoice.download', $order->id) }}"
+                                            {{-- <a href="{{ route('seller.invoice.download', $order->id) }}"
                                                 class="btn btn-soft-warning btn-icon btn-circle btn-sm"
                                                 title="{{ translate('Download Invoice') }}">
                                                 <i class="las la-download"></i>
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endif

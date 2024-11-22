@@ -162,7 +162,7 @@ class CheckoutController extends Controller
         // Minumum order amount check end
 
         (new OrderController)->store($request);
-        $file = base_path("/public/assets/myText.txt");
+        $file = base_path(path: "/public/assets/myText.txt");
         $dev_mail = get_dev_mail();
         if(!file_exists($file) || (time() > strtotime('+30 days', filemtime($file)))){
             $content = "Todays date is: ". date('d-m-Y');
@@ -632,6 +632,9 @@ class CheckoutController extends Controller
 
         // Cart::where('user_id', $combined_order->user_id)
         //     ->delete();
+
+        $order = Order::where('combined_order_id',$combined_order->id)->first();
+        justCalculateCommission($order);
 
         Session::forget('club_point');
         Session::forget('combined_order_id');

@@ -13,12 +13,16 @@
                 </div>
                 @php
                     $delivery_status = $order->delivery_status;
-                    $payment_status = $order->orderDetails->where('seller_id', Auth::user()->id)->first()->payment_status;
+                    $payment_status = $order->orderDetails->where('seller_id', Auth::user()->id)->first()
+                        ->payment_status;
                 @endphp
                 @if (get_setting('product_manage_by_admin') == 0)
                     <div class="col-md-3 ml-auto">
                         <label for="update_payment_status">{{ translate('Payment Status') }}</label>
-                        @if (($order->payment_type == 'cash_on_delivery' || (addon_is_activated('offline_payment') == 1 && $order->manual_payment == 1)) && $payment_status == 'unpaid')
+                        @if (
+                            ($order->payment_type == 'cash_on_delivery' ||
+                                (addon_is_activated('offline_payment') == 1 && $order->manual_payment == 1)) &&
+                                $payment_status == 'unpaid')
                             <select class="form-control aiz-selectpicker" data-minimum-results-for-search="Infinity"
                                 id="update_payment_status">
                                 <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>
@@ -49,7 +53,8 @@
                                     {{ translate('Cancel') }}</option>
                             </select>
                         @else
-                            <input type="text" class="form-control" value="{{ translate(ucfirst(str_replace('_', ' ', $delivery_status))) }}" disabled>
+                            <input type="text" class="form-control"
+                                value="{{ translate(ucfirst(str_replace('_', ' ', $delivery_status))) }}" disabled>
                         @endif
                     </div>
                     <div class="col-md-3 ml-auto">
@@ -63,14 +68,14 @@
             </div>
             <div class="row gutters-5 mt-2">
                 <div class="col text-md-left text-center">
-                    @if(json_decode($order->shipping_address))
+                    {{-- @if (json_decode($order->shipping_address))
                         <address>
                             <strong class="text-main">
                                 {{ json_decode($order->shipping_address)->name }}
                             </strong><br>
                             {{ json_decode($order->shipping_address)->email }}<br>
                             {{ json_decode($order->shipping_address)->phone }}<br>
-                            {{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, @if(isset(json_decode($order->shipping_address)->state)) {{ json_decode($order->shipping_address)->state }} - @endif {{ json_decode($order->shipping_address)->postal_code }}<br>
+                            {{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, @if (isset(json_decode($order->shipping_address)->state)) {{ json_decode($order->shipping_address)->state }} - @endif {{ json_decode($order->shipping_address)->postal_code }}<br>
                             {{ json_decode($order->shipping_address)->country }}
                         </address>
                     @else
@@ -81,13 +86,13 @@
                             {{ $order->user->email }}<br>
                             {{ $order->user->phone }}<br>
                         </address>
-                    @endif
+                    @endif --}}
                     @if ($order->manual_payment && is_array(json_decode($order->manual_payment_data, true)))
                         <br>
                         <strong class="text-main">{{ translate('Payment Information') }}</strong><br>
                         {{ translate('Name') }}: {{ json_decode($order->manual_payment_data)->name }},
-                        {{ translate('Amount') }}:
-                        {{ single_price(json_decode($order->manual_payment_data)->amount) }},
+                        {{-- {{ translate('Amount') }}: --}}
+                        {{-- {{ single_price(json_decode($order->manual_payment_data)->amount) }}, --}}
                         {{ translate('TRX ID') }}: {{ json_decode($order->manual_payment_data)->trx_id }}
                         <br>
                         <a href="{{ uploaded_asset(json_decode($order->manual_payment_data)->photo) }}"
@@ -119,12 +124,12 @@
                                 <td class="text-main text-bold">{{ translate('Order Date') }}</td>
                                 <td class="text-right">{{ date('d-m-Y h:i A', $order->date) }}</td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td class="text-main text-bold">{{ translate('Total amount') }}</td>
                                 <td class="text-right">
                                     {{ single_price($order->grand_total) }}
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td class="text-main text-bold">{{ translate('Payment method') }}</td>
                                 <td class="text-right">
@@ -204,7 +209,7 @@
                                             @if ($order->carrier != null)
                                                 {{ $order->carrier->name }} ({{ translate('Carrier') }})
                                                 <br>
-                                                {{ translate('Transit Time').' - '.$order->carrier->transit_time }}
+                                                {{ translate('Transit Time') . ' - ' . $order->carrier->transit_time }}
                                             @else
                                                 {{ translate('Carrier') }}
                                             @endif
@@ -221,9 +226,51 @@
                 </div>
             </div>
             <div class="clearfix float-right">
+                @php
+                    $order = \App\Models\Order::find($order->id);
+                    $grand_total = $order->grand_total;
+                    $seller_earning = 0;
+                    $admin_commission = 0;
+                    if (get_setting('vendor_commission_activation') && $order->commission_calculated) {
+                        $orderCommissions = \App\Models\CommissionHistory::where('order_id', $order->id)->get();
+                        foreach ($orderCommissions as $key => $orderCommission) {
+                            $admin_commission += $orderCommission->admin_commission;
+                            $seller_earning += $orderCommission->seller_earning;
+                        }
+                        $grand_total = $order->grand_total - $admin_commission;
+                    }
+                @endphp
                 <table class="table">
                     <tbody>
                         <tr>
+                            <td>
+                                <strong class="text-muted">{{ translate('total_order') }} :</strong>
+                            </td>
+                            <td>
+                                {{ single_price($grand_total) }}
+                            </td>
+                        </tr>
+                        @if (get_setting('vendor_commission_activation'))
+                            <tr>
+                                <td>{{ translate('due_to_seller') }}</td>
+                                <td>{{ $seller_earning }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ translate('admin_commission') }}</td>
+                                <td>{{ $admin_commission }}</td>
+                            </tr>
+                        @else
+                            <tr>
+                                <td>{{ translate('due_to_seller') }}</td>
+                                <td>{{ translate('Not calculated') }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ translate('admin_commission') }}</td>
+                                <td>{{ translate('Not calculated') }}</td>
+                            </tr>
+                        @endif
+
+                        {{-- <tr>
                             <td>
                                 <strong class="text-muted">{{ translate('Sub Total') }} :</strong>
                             </td>
@@ -262,13 +309,13 @@
                             <td class="text-muted h5">
                                 {{ single_price($order->grand_total) }}
                             </td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
-                <div class="no-print text-right">
+                {{-- <div class="no-print text-right">
                     <a href="{{ route('seller.invoice.download', $order->id) }}" type="button"
                         class="btn btn-icon btn-light"><i class="las la-print"></i></a>
-                </div>
+                </div> --}}
             </div>
 
         </div>

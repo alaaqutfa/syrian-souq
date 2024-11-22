@@ -1511,6 +1511,17 @@ if (!function_exists('calculateCommissionAffilationClubPoint')) {
     }
 }
 
+//Just Commission Calculation
+if (!function_exists('justCalculateCommission')) {
+    function justCalculateCommission($order)
+    {
+        (new CommissionController)->justCalculateCommission($order);
+
+        $order->commission_calculated = 1;
+        $order->save();
+    }
+}
+
 // Addon Activation Check
 if (!function_exists('addon_is_activated')) {
     function addon_is_activated($identifier, $default = null)
