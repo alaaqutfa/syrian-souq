@@ -26,6 +26,7 @@
                     <tr>
                         <th>#</th>
                         <th>{{ translate('Tax Name') }}</th>
+                        <th>{{ translate('Type') }}</th>
                         <th>{{ translate('Tax Type') }}</th>
                         <th>{{ translate('Value') }}</th>
                         <th>{{ translate('Status') }}</th>
@@ -37,6 +38,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $tax->name }}</td>
+
+                            <td>{{ translate($tax->type) }}</td>
 
                             <td>{{ translate($tax->tax_type) }}</td>
 
@@ -94,6 +97,15 @@
                                 <div class="col-sm-9 mb-2">
                                     <input type="text" placeholder="{{ translate('Name') }}" id="name"
                                         name="name" class="form-control" required>
+                                </div>
+                                <label class="col-sm-3 mb-2 control-label" for="type">
+                                    {{ translate('Product Type') }}
+                                </label>
+                                <div class="col-sm-9 mb-2">
+                                    <select class="form-control aiz-selectpicker" name="type">
+                                        <option value="physical">{{ translate('physical') }}</option>
+                                        <option value="digital">{{ translate('digital') }}</option>
+                                    </select>
                                 </div>
                                 <label class="col-sm-3 mb-2 control-label" for="name">
                                     {{ translate('Tax Type') }}

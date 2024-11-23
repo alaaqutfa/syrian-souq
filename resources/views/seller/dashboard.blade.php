@@ -15,21 +15,39 @@
 
     <div class="row">
         <div class="col-sm-6 col-md-6 col-xxl-3">
-            <a href="{{ route('seller.products.create') }}" class="card mb-4 p-4 text-center h-180px">
-                <div class="fs-16 fw-600 text-primary">
-                    {{ translate('Add New Product') }}
-                </div>
-                <div class="m-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-                        <g id="Group_22724" data-name="Group 22724" transform="translate(-1284 -875)">
-                            <rect id="Rectangle_17080" data-name="Rectangle 17080" width="2" height="48"
-                                rx="1" transform="translate(1307 875)" fill="#2E294E" />
-                            <rect id="Rectangle_17081" data-name="Rectangle 17081" width="2" height="48"
-                                rx="1" transform="translate(1332 898) rotate(90)" fill="#2E294E" />
-                        </g>
-                    </svg>
-                </div>
-            </a>
+            @if (optional(Auth::user()->shop)->type == 1)
+                <a href="{{ route('seller.digitalproducts') }}" class="card mb-4 p-4 text-center h-180px">
+                    <div class="fs-16 fw-600 text-primary">
+                        {{ translate('Add New Service') }}
+                    </div>
+                    <div class="m-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                            <g id="Group_22724" data-name="Group 22724" transform="translate(-1284 -875)">
+                                <rect id="Rectangle_17080" data-name="Rectangle 17080" width="2" height="48"
+                                    rx="1" transform="translate(1307 875)" fill="#2E294E" />
+                                <rect id="Rectangle_17081" data-name="Rectangle 17081" width="2" height="48"
+                                    rx="1" transform="translate(1332 898) rotate(90)" fill="#2E294E" />
+                            </g>
+                        </svg>
+                    </div>
+                </a>
+            @else
+                <a href="{{ route('seller.products.create') }}" class="card mb-4 p-4 text-center h-180px">
+                    <div class="fs-16 fw-600 text-primary">
+                        {{ translate('Add New Product') }}
+                    </div>
+                    <div class="m-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                            <g id="Group_22724" data-name="Group 22724" transform="translate(-1284 -875)">
+                                <rect id="Rectangle_17080" data-name="Rectangle 17080" width="2" height="48"
+                                    rx="1" transform="translate(1307 875)" fill="#2E294E" />
+                                <rect id="Rectangle_17081" data-name="Rectangle 17081" width="2" height="48"
+                                    rx="1" transform="translate(1332 898) rotate(90)" fill="#2E294E" />
+                            </g>
+                        </svg>
+                    </div>
+                </a>
+            @endif
         </div>
         <div class="col-sm-6 col-md-6 col-xxl-3">
             <div class="card mb-4 p-4 text-center bg-soft-primary">
@@ -77,7 +95,8 @@
                         </a>
 
                         <div class="col-auto text-right">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="64.001" height="64" viewBox="0 0 64.001 64">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64.001" height="64"
+                                viewBox="0 0 64.001 64">
                                 <path id="Path_66" data-name="Path 66"
                                     d="M146.431,117.56l-26.514-10.606a8.014,8.014,0,0,0-5.944,0L87.458,117.56a4,4,0,0,0-2.514,3.714v34.217a4,4,0,0,0,2.514,3.714l26.514,10.606a8.013,8.013,0,0,0,5.944,0L146.431,159.2a4,4,0,0,0,2.514-3.714V121.274a4,4,0,0,0-2.514-3.714m-31.714-8.748a5.981,5.981,0,0,1,4.456,0l26.1,10.44a1,1,0,0,1,0,1.858l-12.332,4.932-30.654-12.26Zm1.228,59.633L88.2,157.347a2,2,0,0,1-1.258-1.856V122.6l29,11.6Zm1-36L88.612,121.11a1,1,0,0,1,0-1.858L99.6,114.858l30.654,12.262Zm30,23.048a2,2,0,0,1-1.258,1.856l-27.742,11.1V134.2l13-5.2V146.61a1.035,1.035,0,0,0,2-.466V128.2l14-5.6Z"
                                     transform="translate(-84.944 -106.382)" fill="#FFFFFF" />
@@ -102,7 +121,8 @@
 
                         </div>
                         <div class="col-auto text-right">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="61.143" viewBox="0 0 64 61.143">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="61.143"
+                                viewBox="0 0 64 61.143">
                                 <path id="Path_57" data-name="Path 57"
                                     d="M63.286,22.145a2.821,2.821,0,0,0-1.816-.926L43.958,19.455a2.816,2.816,0,0,1-2.294-1.666L34.574,1.68a2.813,2.813,0,0,0-5.148,0l-7.09,16.11a2.813,2.813,0,0,1-2.292,1.666L2.53,21.219a2.813,2.813,0,0,0-1.59,4.9l13.13,11.72a2.818,2.818,0,0,1,.876,2.7l-3.734,17.2a2.812,2.812,0,0,0,4.166,3.026L30.584,51.9a2.8,2.8,0,0,1,2.832,0l15.206,8.864a2.813,2.813,0,0,0,4.166-3.026l-3.734-17.2a2.818,2.818,0,0,1,.876-2.7l13.13-11.72a2.813,2.813,0,0,0,.226-3.972m-1.5,2.546L48.658,36.413a4.717,4.717,0,0,0-1.47,4.524l3.732,17.2a.9.9,0,0,1-1.336.97l-15.2-8.866a4.729,4.729,0,0,0-4.758,0L14.416,59.109a.9.9,0,0,1-1.336-.97l3.732-17.2a4.717,4.717,0,0,0-1.47-4.524L2.212,24.691a.9.9,0,0,1,.51-1.57l17.512-1.766a4.721,4.721,0,0,0,3.85-2.8l7.09-16.11a.9.9,0,0,1,1.652,0l7.09,16.11a4.721,4.721,0,0,0,3.85,2.8l17.512,1.766a.9.9,0,0,1,.51,1.57"
                                     transform="translate(0 0)" fill="#FFFFFF" />
@@ -196,8 +216,8 @@
                                                 $orderCommission = \App\Models\CommissionHistory::where(
                                                     'order_detail_id',
                                                     $orderDetail->id,
-                                                    )->first();
-                                                    $price = $orderCommission->seller_earning;
+                                                )->first();
+                                                $price = $orderCommission->seller_earning;
                                             } else {
                                                 $price = $orderDetail->price;
                                             }
