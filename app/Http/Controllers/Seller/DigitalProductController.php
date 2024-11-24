@@ -41,8 +41,8 @@ class DigitalProductController  extends Controller
     public function create()
     {
         $userId = auth()->id();
-        $shop = Shop::where('user_id', $userId)->first(); 
-    
+        $shop = Shop::where('user_id', $userId)->first();
+
         if (addon_is_activated('seller_subscription')) {
             if (!seller_package_validity_check()) {
                 flash(translate('Please upgrade your package.'))->warning();
@@ -89,8 +89,9 @@ class DigitalProductController  extends Controller
 
         //VAT & Tax
         if ($request->tax_id) {
+
             (new ProductTaxService)->store($request->only([
-                'tax_id', 'tax', 'tax_type', 'product_id'
+                'tax_id', 'tax_value', 'tax_types', 'product_id'
             ]));
         }
 
@@ -131,7 +132,7 @@ class DigitalProductController  extends Controller
     public function edit(Request $request, $id)
     {
         $userId = auth()->id();
-        $shop = Shop::where('user_id', $userId)->first(); 
+        $shop = Shop::where('user_id', $userId)->first();
 
         $categories = Category::where('digital', 1)
         ->where('id', $shop->type_value)
@@ -174,7 +175,7 @@ class DigitalProductController  extends Controller
         if ($request->tax_id) {
             ProductTax::where('product_id', $product->id)->delete();
             (new ProductTaxService)->store($request->only([
-                'tax_id', 'tax', 'tax_type', 'product_id'
+                'tax_id', 'tax_value', 'tax_types', 'product_id'
             ]));
         }
 

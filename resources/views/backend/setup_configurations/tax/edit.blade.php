@@ -23,6 +23,15 @@
                                 <input type="text" class="form-control" name="name"
                                     placeholder="{{ translate('Name') }}" value="{{ $tax->name }}" required>
                             </div>
+                            <label class="col-sm-3 mb-2 control-label" for="type">
+                                {{ translate('Product Type') }}
+                            </label>
+                            <div class="col-sm-9 mb-2">
+                                <select class="form-control aiz-selectpicker" name="type">
+                                    <option value="physical" @if ($tax->type == 'physical') selected @endif>{{ translate('physical') }}</option>
+                                    <option value="digital" @if ($tax->type == 'digital') selected @endif>{{ translate('digital') }}</option>
+                                </select>
+                            </div>
                             <label class="col-sm-3 mb-2 control-label" for="name">
                                 {{ translate('Tax Type') }}
                             </label>
