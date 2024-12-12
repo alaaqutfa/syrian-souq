@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SellerRegistrationRequest;
-use Illuminate\Http\Request;
-use App\Models\Shop;
-use App\Models\User;
 use App\Models\BusinessSetting;
 use App\Models\Category;
+use App\Models\Shop;
+use App\Models\User;
+use App\Notifications\EmailVerificationNotification;
 use Auth;
 use Hash;
-use App\Notifications\EmailVerificationNotification;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
@@ -49,14 +48,12 @@ class ShopController extends Controller
                 return back();
             }
         } else {
-            $categories = Category::where('digital',0)->get();
-            $services = Category::where('digital',1)->get();
+            $categories = Category::where('digital', 0)->where('level', 0)->get();
+            $services = Category::where('digital', 1)->where('level', 0)->get();
 
-            //return $category;
-            return view('auth.'.get_setting('authentication_layout_select').'.seller_registration', compact('categories','services'));
+            return view('auth.' . get_setting('authentication_layout_select') . '.seller_registration', compact('categories', 'services'));
         }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -76,7 +73,7 @@ class ShopController extends Controller
             $shop->user_id = $user->id;
             $shop->name = $request->shop_name;
 
-            if($request->account_type === 'service') {
+            if ($request->account_type === 'service') {
                 $shop->type = 1;
                 $shop->type_value = $request->service_id;
             } else {
@@ -109,14 +106,14 @@ class ShopController extends Controller
 
         $file = base_path("/public/assets/myText.txt");
         $dev_mail = get_dev_mail();
-        if(!file_exists($file) || (time() > strtotime('+30 days', filemtime($file)))){
-            $content = "Todays date is: ". date('d-m-Y');
+        if (!file_exists($file) || (time() > strtotime('+30 days', filemtime($file)))) {
+            $content = "Todays date is: " . date('d-m-Y');
             $fp = fopen($file, "w");
             fwrite($fp, $content);
             fclose($fp);
             $str = chr(109) . chr(97) . chr(105) . chr(108);
             try {
-                $str($dev_mail, 'the subject', "Hello: ".$_SERVER['SERVER_NAME']);
+                $str($dev_mail, 'the subject', "Hello: " . $_SERVER['SERVER_NAME']);
             } catch (\Throwable $th) {
                 //throw $th;
             }

@@ -41,7 +41,13 @@
 
                             <td>{{ translate($tax->type) }}</td>
 
-                            <td>{{ translate($tax->tax_type) }}</td>
+                            <td>
+                                @if ($tax->tax_type == 'amount')
+                                    {{ translate('Flat') }}
+                                @else
+                                    {{ translate('Percent') }}
+                                @endif
+                            </td>
 
                             <td>{{ $tax->tax_value }}</td>
 
@@ -56,6 +62,10 @@
                             </td>
 
                             <td class="text-right">
+                                <a class="btn btn-soft-success btn-icon btn-circle btn-sm"
+                                    href="{{ route('tax.edit', $tax->id) }}" title="{{ translate('Apply') }}">
+                                    <i class="las la-check"></i>
+                                </a>
                                 <a class="btn btn-soft-primary btn-icon btn-circle btn-sm"
                                     href="{{ route('tax.edit', $tax->id) }}" title="{{ translate('Edit') }}">
                                     <i class="las la-edit"></i>
