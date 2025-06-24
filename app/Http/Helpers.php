@@ -194,16 +194,18 @@ if (!function_exists('convert_price')) {
     function convert_price($price)
     {
         if (Session::has('currency_code') && (Session::get('currency_code') != get_system_default_currency()->code)) {
-            $price = floatval($price) / floatval(get_system_default_currency()->exchange_rate);
-            $price = floatval($price) * floatval(Session::get('currency_exchange_rate'));
+            // $price = floatval($price) / floatval(get_system_default_currency()->exchange_rate);
+            // $price = floatval($price) * floatval(Session::get('currency_exchange_rate'));
+            $price = floatval($price) / floatval(Session::get('currency_exchange_rate'));
         }
 
         if (
             request()->header('Currency-Code') &&
             request()->header('Currency-Code') != get_system_default_currency()->code
         ) {
-            $price = floatval($price) / floatval(get_system_default_currency()->exchange_rate);
-            $price = floatval($price) * floatval(request()->header('Currency-Exchange-Rate'));
+            // $price = floatval($price) / floatval(get_system_default_currency()->exchange_rate);
+            // $price = floatval($price) * floatval(Session::get('currency_exchange_rate'));
+            $price = floatval($price) / floatval(request()->header('Currency-Exchange-Rate'));
         }
         return $price;
     }

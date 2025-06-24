@@ -27,6 +27,7 @@
                         <th>#</th>
                         <th>{{ translate('Tax Name') }}</th>
                         <th>{{ translate('Type') }}</th>
+                        <th>{{ translate('Category Type') }}</th>
                         <th>{{ translate('Tax Type') }}</th>
                         <th>{{ translate('Value') }}</th>
                         <th>{{ translate('Status') }}</th>
@@ -40,6 +41,14 @@
                             <td>{{ $tax->name }}</td>
 
                             <td>{{ translate($tax->type) }}</td>
+
+                            <td>
+                                @foreach ($allcategories as $category)
+                                    @if ($category->id == $tax->tax_category)
+                                        {{ $category->name }}
+                                    @endif
+                                @endforeach
+                            </td>
 
                             <td>
                                 @if ($tax->tax_type == 'amount')
@@ -112,9 +121,24 @@
                                     {{ translate('Product Type') }}
                                 </label>
                                 <div class="col-sm-9 mb-2">
-                                    <select class="form-control aiz-selectpicker" name="type">
-                                        <option value="physical">{{ translate('physical') }}</option>
+                                    <select class="form-control aiz-selectpicker" name="type" id="type">
+                                        <option value="physical" selected>{{ translate('physical') }}</option>
                                         <option value="digital">{{ translate('digital') }}</option>
+                                    </select>
+                                </div>
+                                <label class="col-sm-3 mb-2 control-label" for="category_id">
+                                    {{ translate('Category Type') }}
+                                </label>
+                                <div class="col-sm-9 mb-2">
+                                    <select class="form-control aiz-selectpicker" id="category_id" name="category_id">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <select class="form-control d-none aiz-selectpicker" id="service_id" name="service_id" style="display: none;">
+                                        @foreach ($services as $service)
+                                            <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <label class="col-sm-3 mb-2 control-label" for="name">
@@ -185,5 +209,32 @@
                 }
             });
         }
+
+        document.getElementById("type").addEventListener('change', () => {
+            var category = document.querySelector("[data-id='category_id']");
+            var service = document.querySelector("[data-id='service_id']");
+
+            if (document.getElementById("type").value === "physical") {
+                category.classList.remove("d-none");
+                category.classList.add("d-flex");
+                category.parentElement.classList.remove("d-none");
+                category.parentElement.classList.add("d-flex");
+
+                service.classList.remove("d-flex");
+                service.classList.add("d-none");
+                service.parentElement.classList.remove("d-flex");
+                service.parentElement.classList.add("d-none");
+            } else {
+                category.classList.remove("d-flex");
+                category.classList.add("d-none");
+                category.parentElement.classList.remove("d-flex");
+                category.parentElement.classList.add("d-none");
+
+                service.classList.remove("d-none");
+                service.classList.add("d-flex");
+                service.parentElement.classList.remove("d-none");
+                service.parentElement.classList.add("d-flex");
+            }
+        });
     </script>
 @endsection

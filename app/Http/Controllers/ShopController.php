@@ -75,11 +75,10 @@ class ShopController extends Controller
 
             if ($request->account_type === 'service') {
                 $shop->type = 1;
-                $shop->type_value = $request->service_id;
             } else {
                 $shop->type = 0;
-                $shop->type_value = $request->category_id;
             }
+            $shop->type_value = $request->category_id;
 
             $shop->address = $request->address;
             $shop->slug = preg_replace('/\s+/', '-', str_replace("/", " ", $request->shop_name));

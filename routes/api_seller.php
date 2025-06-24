@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Http\Controllers\Api\V2\Seller;
 
+use App\Http\Controllers\Api\V2\Seller\ShopController;
 use Route;
 
 Route::group(['prefix' => 'v2/seller', 'middleware' => ['app_language']], function () {
@@ -41,6 +41,7 @@ Route::group(['prefix' => 'v2/seller', 'middleware' => ['app_language']], functi
             Route::post('refunds/approve', 'request_approval_vendor');
             Route::post('refunds/reject', 'reject_refund_request');
         });
+
         //Withdraw Request Section
         Route::controller(WithdrawRequestController::class)->group(function () {
             Route::get('withdraw-request', 'index');
@@ -63,12 +64,9 @@ Route::group(['prefix' => 'v2/seller', 'middleware' => ['app_language']], functi
             Route::get('product/duplicate/{id}', 'duplicate');
             Route::get('product/delete/{id}', 'destroy');
             Route::get('products/remaining-uploads', 'remainingUploads');
-
             Route::get('products/reviews', 'product_reviews');
             Route::post('product/search', 'productSearch');
-
         });
-
 
         //Product Query Section
         Route::controller(ProductQueryController::class)->group(function () {
@@ -76,6 +74,7 @@ Route::group(['prefix' => 'v2/seller', 'middleware' => ['app_language']], functi
             Route::get('products/query-show/{id}', 'product_queries_show');
             Route::post('products/query-reply/{id}', 'product_queries_reply');
         });
+
         // Digital Product Section
         Route::controller(DigitalProductController::class)->group(function () {
             Route::get('digital-products', 'index');
@@ -141,8 +140,6 @@ Route::group(['prefix' => 'v2/seller', 'middleware' => ['app_language']], functi
             Route::get('file/delete/{id}', 'destroy');
         });
 
-        // ...
-
         // POS
         Route::controller(PosController::class)->group(function () {
             Route::get('pos/products', 'productsList');
@@ -161,5 +158,6 @@ Route::group(['prefix' => 'v2/seller', 'middleware' => ['app_language']], functi
 
     });
 
-    // Route::post('shops/create', [ShopController::class, 'store']);
+    Route::get('create', [ShopController::class, 'create']);
+    Route::post('register', [ShopController::class, 'store']);
 });

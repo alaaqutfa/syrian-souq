@@ -37,6 +37,7 @@
                     @csrf
                     <input type="hidden" name="added_by" value="seller">
                     @foreach ($categories as $category)
+                        @php($tax_category = $category->id)
                         <input type="hidden" name="category_id" value="{{ $category->id }}" />
                     @endforeach
                     <input type="hidden" name="digital" value="1">
@@ -66,182 +67,182 @@
                                         @php
                                             $hasSubCategories = true;
                                         @endphp
-                                        @break
-                                    @endif
-                                @endforeach
-                                @if ($hasSubCategories)
-                                    <div class="form-group row">
-                                        <label class="col-md-3 col-from-label">
-                                            {{ translate('Product Category') }}
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <div class="col-md-8">
-                                            @foreach ($categories as $category)
-                                                @foreach ($category->childrenCategories as $childCategory)
-                                                    @include('categories.child_category', [
-                                                        'child_category' => $childCategory,
-                                                    ])
-                                                @endforeach
-                                            @endforeach
-                                        </div>
-                                    </div>
+                                    @break
                                 @endif
-                            </div>
-                            <!-- Short Description -->
-                            <div class="form-group row">
-                                <label class="col-md-3 col-from-label">{{ translate('short description') }}</label>
-                                <div class="col-md-8">
-                                    <textarea name="meta_description" rows="8" class="aiz-text-editor"></textarea>
+                            @endforeach
+                            @if ($hasSubCategories)
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-from-label">
+                                        {{ translate('Product Category') }}
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        @foreach ($categories as $category)
+                                            @foreach ($category->childrenCategories as $childCategory)
+                                                @include('categories.child_category', [
+                                                    'child_category' => $childCategory,
+                                                ])
+                                            @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
+                            @endif
+                        </div>
+                        <!-- Short Description -->
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">{{ translate('short description') }}</label>
+                            <div class="col-md-8">
+                                <textarea name="meta_description" rows="8" class="aiz-text-editor"></textarea>
                             </div>
                         </div>
                     </div>
-                    <!-- Product Images -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Images') }}</h5>
+                </div>
+                <!-- Product Images -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 h6">{{ translate('Images') }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Product File -->
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-from-label">{{ translate('Product File') }}</label>
+                            <div class="col-lg-9">
+                                <div class="input-group" data-toggle="aizuploader" data-multiple="false">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium">
+                                            {{ translate('Browse') }}</div>
+                                    </div>
+                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                    <input type="hidden" name="file_name" class="selected-files">
+                                </div>
+                                <div class="file-preview box sm">
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <!-- Product File -->
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-from-label">{{ translate('Product File') }}</label>
-                                <div class="col-lg-9">
-                                    <div class="input-group" data-toggle="aizuploader" data-multiple="false">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text bg-soft-secondary font-weight-medium">
-                                                {{ translate('Browse') }}</div>
-                                        </div>
-                                        <div class="form-control file-amount">{{ translate('Choose File') }}</div>
-                                        <input type="hidden" name="file_name" class="selected-files">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label"
+                                for="signinSrEmail">{{ translate('Gallery Images') }} <small>(600x600)</small></label>
+                            <div class="col-lg-9">
+                                <div class="input-group" data-toggle="aizuploader" data-type="image"
+                                    data-multiple="true">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium">
+                                            {{ translate('Browse') }}</div>
                                     </div>
-                                    <div class="file-preview box sm">
-                                    </div>
+                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                    <input type="hidden" name="photos" class="selected-files">
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label"
-                                    for="signinSrEmail">{{ translate('Gallery Images') }} <small>(600x600)</small></label>
-                                <div class="col-lg-9">
-                                    <div class="input-group" data-toggle="aizuploader" data-type="image"
-                                        data-multiple="true">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text bg-soft-secondary font-weight-medium">
-                                                {{ translate('Browse') }}</div>
-                                        </div>
-                                        <div class="form-control file-amount">{{ translate('Choose File') }}</div>
-                                        <input type="hidden" name="photos" class="selected-files">
-                                    </div>
-                                    <div class="file-preview box sm">
-                                    </div>
-                                    <small
-                                        class="text-muted">{{ translate('These images are visible in product details page gallery. Use 600x600 sizes images.') }}</small>
+                                <div class="file-preview box sm">
                                 </div>
+                                <small
+                                    class="text-muted">{{ translate('These images are visible in product details page gallery. Use 600x600 sizes images.') }}</small>
                             </div>
+                        </div>
 
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label"
-                                    for="signinSrEmail">{{ translate('Thumbnail Image') }} <small>(300x300)</small></label>
-                                <div class="col-lg-9">
-                                    <div class="input-group" data-toggle="aizuploader" data-type="image"
-                                        data-multiple="false">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text bg-soft-secondary font-weight-medium">
-                                                {{ translate('Browse') }}</div>
-                                        </div>
-                                        <div class="form-control file-amount">{{ translate('Choose File') }}</div>
-                                        <input type="hidden" name="thumbnail_img" class="selected-files">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label"
+                                for="signinSrEmail">{{ translate('Thumbnail Image') }} <small>(300x300)</small></label>
+                            <div class="col-lg-9">
+                                <div class="input-group" data-toggle="aizuploader" data-type="image"
+                                    data-multiple="false">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium">
+                                            {{ translate('Browse') }}</div>
                                     </div>
-                                    <div class="file-preview box sm">
-                                    </div>
-                                    <small
-                                        class="text-muted">{{ translate('This image is visible in all product box. Use 300x300 sizes image. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.') }}</small>
+                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                    <input type="hidden" name="thumbnail_img" class="selected-files">
                                 </div>
+                                <div class="file-preview box sm">
+                                </div>
+                                <small
+                                    class="text-muted">{{ translate('This image is visible in all product box. Use 300x300 sizes image. Keep some blank space around main object of your image as we had to crop some edge in different devices to make it responsive.') }}</small>
                             </div>
+                        </div>
 
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label"
-                                    for="signinSrEmail">{{ translate('Meta Image') }}</label>
-                                <div class="col-lg-9">
-                                    <div class="input-group" data-toggle="aizuploader" data-type="image"
-                                        data-multiple="false">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text bg-soft-secondary font-weight-medium">
-                                                {{ translate('Browse') }}</div>
-                                        </div>
-                                        <div class="form-control file-amount">{{ translate('Choose File') }}</div>
-                                        <input type="hidden" name="meta_img" class="selected-files">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label"
+                                for="signinSrEmail">{{ translate('Meta Image') }}</label>
+                            <div class="col-lg-9">
+                                <div class="input-group" data-toggle="aizuploader" data-type="image"
+                                    data-multiple="false">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium">
+                                            {{ translate('Browse') }}</div>
                                     </div>
-                                    <div class="file-preview box sm">
-                                    </div>
+                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                    <input type="hidden" name="meta_img" class="selected-files">
+                                </div>
+                                <div class="file-preview box sm">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Price -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Price') }}</h5>
+                </div>
+                <!-- Price -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 h6">{{ translate('Price') }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-from-label">{{ translate('Unit price') }} <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <input type="number" lang="en" min="0" value="0" step="0.01"
+                                    placeholder="{{ translate('Unit price') }}" name="unit_price"
+                                    class="form-control" required>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-from-label">{{ translate('Unit price') }} <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-9">
-                                    <input type="number" lang="en" min="0" value="0" step="0.01"
-                                        placeholder="{{ translate('Unit price') }}" name="unit_price"
-                                        class="form-control" required>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label"
+                                for="start_date">{{ translate('Discount Date Range') }} </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control aiz-date-range" name="date_range"
+                                    placeholder="{{ translate('Select Date') }}" data-time-picker="true"
+                                    data-format="DD-MM-Y HH:mm:ss" data-separator=" to " autocomplete="off">
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-3 control-label"
-                                    for="start_date">{{ translate('Discount Date Range') }} </label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control aiz-date-range" name="date_range"
-                                        placeholder="{{ translate('Select Date') }}" data-time-picker="true"
-                                        data-format="DD-MM-Y HH:mm:ss" data-separator=" to " autocomplete="off">
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-from-label">{{ translate('Discount') }} <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-lg-6">
+                                <input type="number" lang="en" min="0" value="0" step="0.01"
+                                    placeholder="{{ translate('Discount') }}" name="discount" class="form-control"
+                                    required>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-from-label">{{ translate('Discount') }} <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-6">
-                                    <input type="number" lang="en" min="0" value="0" step="0.01"
-                                        placeholder="{{ translate('Discount') }}" name="discount" class="form-control"
-                                        required>
-                                </div>
-                                <div class="col-md-3">
-                                    <select class="form-control aiz-selectpicker" name="discount_type">
-                                        <option value="amount">{{ translate('Flat') }}</option>
-                                        <option value="percent">{{ translate('Percent') }}</option>
-                                    </select>
-                                </div>
+                            <div class="col-md-3">
+                                <select class="form-control aiz-selectpicker" name="discount_type">
+                                    <option value="amount">{{ translate('Flat') }}</option>
+                                    <option value="percent">{{ translate('Percent') }}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <!-- Product Description -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0 h6">{{ translate('Product Description') }}</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-lg-12">
-                                    <textarea class="aiz-text-editor" name="description"></textarea>
-                                </div>
+                </div>
+                <!-- Product Description -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0 h6">{{ translate('Product Description') }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-lg-12">
+                                <textarea class="aiz-text-editor" name="description"></textarea>
                             </div>
                         </div>
                     </div>
-                    <!-- VAT & Tax -->
-                    @foreach (\App\Models\Tax::where('tax_status', 1)->where('type','digital')->get() as $tax)
-                        <div class="tax_{{ $tax->id }}">
-                            <input type="hidden" name="tax_name" value="{{ $tax->name }}">
-                            <input type="hidden" name="type" value="{{ $tax->type }}">
-                            <input type="hidden" name="tax_id[]" value="{{ $tax->id }}">
-                            <input type="hidden" name="tax_value[]" value="{{ $tax->tax_value }}">
-                            <input type="hidden" name="tax_types[]" value="{{ $tax->tax_type }}">
-                            {{-- amount , percent --}}
-                        </div>
-                    @endforeach
+                </div>
+                <!-- VAT & Tax -->
+                @foreach (\App\Models\Tax::where('tax_status', 1)->where('type', 'digital')->where('tax_category', $tax_category)->get() as $tax)
+                    <div class="tax_{{ $tax->id }}">
+                        <input type="hidden" name="tax_name" value="{{ $tax->name }}">
+                        <input type="hidden" name="type" value="{{ $tax->type }}">
+                        <input type="hidden" name="tax_id[]" value="{{ $tax->id }}">
+                        <input type="hidden" name="tax_value[]" value="{{ $tax->tax_value }}">
+                        <input type="hidden" name="tax_types[]" value="{{ $tax->tax_type }}">
+                        {{-- amount , percent --}}
+                    </div>
+                @endforeach
             </div>
             <div class="col-lg-4 d-none">
                 <!-- SEO Meta Tags -->
