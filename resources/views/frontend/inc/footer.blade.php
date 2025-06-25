@@ -158,16 +158,16 @@
                 @endif
             </a>
         </div>
-        
+
         <style>
             .responsive-img {
-                max-width: 100%;
-                height: auto; 
+                max-width: 300px;
+                width: 100%;
+                object-fit: contain;
                 display: block;
-                margin: 0 auto; 
             }
         </style>
-        
+
 
         <div class="row">
             <!-- about & subscription -->
@@ -333,7 +333,12 @@
                         </li>
                         <li class="mb-2">
                             <p class="fs-13 text-secondary mb-1">{{ translate('Phone') }}</p>
-                            <p class="fs-13 text-soft-light">{{ get_setting('contact_phone') }}</p>
+                            <p class="">
+                                <a href="tel:{{ get_setting('contact_phone') }}"
+                                    class="fs-13 text-soft-light hov-text-primary">
+                                    {{ get_setting('contact_phone') }}
+                                </a>
+                            </p>
                         </li>
                         <li class="mb-2">
                             <p class="fs-13 text-secondary mb-1">{{ translate('Email') }}</p>
@@ -508,7 +513,12 @@
                         </li>
                         <li class="mb-2">
                             <p class="fs-13 text-secondary mb-1">{{ translate('Phone') }}</p>
-                            <p class="fs-13 text-soft-light">{{ get_setting('contact_phone') }}</p>
+                            <p class="">
+                                <a href="tel:{{ get_setting('contact_phone') }}"
+                                    class="fs-13 text-soft-light hov-text-primary">
+                                    {{ get_setting('contact_phone') }}
+                                </a>
+                            </p>
                         </li>
                         <li class="mb-2">
                             <p class="fs-13 text-secondary mb-1">{{ translate('Email') }}</p>
