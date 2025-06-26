@@ -28,12 +28,12 @@ class ProductService
             $user_id = User::where('user_type', 'admin')->first()->id;
         }
         $tags = array();
-        // if ($collection['tags'][0] != null) {
-        //     foreach (json_decode($collection['tags'][0]) as $key => $tag) {
-        //         array_push($tags, $tag->value);
-        //     }
-        // }
-        // $collection['tags'] = implode(',', $tags);
+        if ($collection['tags'][0] != null) {
+            foreach (json_decode($collection['tags'][0]) as $key => $tag) {
+                array_push($tags, $tag->value);
+            }
+        }
+        $collection['tags'] = implode(',', $tags);
         $discount_start_date = null;
         $discount_end_date   = null;
         if ($collection['date_range'] != null) {
@@ -193,12 +193,12 @@ class ProductService
 
 
         $tags = array();
-        // if ($collection['tags'][0] != null) {
-        //     foreach (json_decode($collection['tags'][0]) as $key => $tag) {
-        //         array_push($tags, $tag->value);
-        //     }
-        // }
-        // $collection['tags'] = implode(',', $tags);
+        if ($collection['tags'][0] != null) {
+            foreach (json_decode($collection['tags'][0]) as $key => $tag) {
+                array_push($tags, $tag->value);
+            }
+        }
+        $collection['tags'] = implode(',', $tags);
         $discount_start_date = null;
         $discount_end_date   = null;
         if ($collection['date_range'] != null) {

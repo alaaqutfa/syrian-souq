@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use AizPackages\CombinationGenerate\Services\CombinationService;
@@ -21,13 +20,12 @@ use App\Services\ProductTaxService;
 use Artisan;
 use Cache;
 use Carbon\Carbon;
-use CoreComponentRepository;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Contracts\View\View;
 
 class ProductController extends Controller
 {
@@ -44,10 +42,10 @@ class ProductController extends Controller
         ProductStockService $productStockService,
         FrequentlyBoughtProductService $frequentlyBoughtProductService
     ) {
-        $this->productService = $productService;
-        $this->productTaxService = $productTaxService;
-        $this->productFlashDealService = $productFlashDealService;
-        $this->productStockService = $productStockService;
+        $this->productService                 = $productService;
+        $this->productTaxService              = $productTaxService;
+        $this->productFlashDealService        = $productFlashDealService;
+        $this->productStockService            = $productStockService;
         $this->frequentlyBoughtProductService = $frequentlyBoughtProductService;
 
         // Staff Permission Check
@@ -69,23 +67,23 @@ class ProductController extends Controller
     {
         // CoreComponentRepository::instantiateShopRepository();
 
-        $type = 'In House';
-        $col_name = null;
-        $query = null;
+        $type        = 'In House';
+        $col_name    = null;
+        $query       = null;
         $sort_search = null;
 
         $products = Product::where('added_by', 'admin')->where('auction_product', 0)->where('wholesale_product', 0);
 
         if ($request->type != null) {
-            $var = explode(",", $request->type);
-            $col_name = $var[0];
-            $query = $var[1];
-            $products = $products->orderBy($col_name, $query);
+            $var       = explode(",", $request->type);
+            $col_name  = $var[0];
+            $query     = $var[1];
+            $products  = $products->orderBy($col_name, $query);
             $sort_type = $request->type;
         }
         if ($request->search != null) {
             $sort_search = $request->search;
-            $products = $products
+            $products    = $products
                 ->where('name', 'like', '%' . $sort_search . '%')
                 ->orWhereHas('stocks', function ($q) use ($sort_search) {
                     $q->where('sku', 'like', '%' . $sort_search . '%');
@@ -104,13 +102,13 @@ class ProductController extends Controller
      */
     public function seller_products(Request $request, $product_type): View
     {
-        $col_name = null;
-        $query = null;
-        $seller_id = null;
+        $col_name    = null;
+        $query       = null;
+        $seller_id   = null;
         $sort_search = null;
-        $products = Product::where('added_by', 'seller')->where('auction_product', 0)->where('wholesale_product', 0);
+        $products    = Product::where('added_by', 'seller')->where('auction_product', 0)->where('wholesale_product', 0);
         if ($request->has('user_id') && $request->user_id != null) {
-            $products = $products->where('user_id', $request->user_id);
+            $products  = $products->where('user_id', $request->user_id);
             $seller_id = $request->user_id;
         }
         if ($request->search != null) {
@@ -119,15 +117,15 @@ class ProductController extends Controller
             $sort_search = $request->search;
         }
         if ($request->type != null) {
-            $var = explode(",", $request->type);
-            $col_name = $var[0];
-            $query = $var[1];
-            $products = $products->orderBy($col_name, $query);
+            $var       = explode(",", $request->type);
+            $col_name  = $var[0];
+            $query     = $var[1];
+            $products  = $products->orderBy($col_name, $query);
             $sort_type = $request->type;
         }
         $products = $product_type == 'physical' ? $products->where('digital', 0) : $products->where('digital', 1);
         $products = $products->orderBy('created_at', 'desc')->paginate(15);
-        $type = 'Seller';
+        $type     = 'Seller';
 
         if ($product_type == 'digital') {
             return view('backend.product.digital_products.index', compact('products', 'sort_search', 'type'));
@@ -137,36 +135,36 @@ class ProductController extends Controller
 
     public function all_products(Request $request)
     {
-        $col_name = null;
-        $query = null;
-        $seller_id = null;
+        $col_name    = null;
+        $query       = null;
+        $seller_id   = null;
         $sort_search = null;
-        $products = Product::where('auction_product', 0)->where('wholesale_product', 0);
+        $products    = Product::where('auction_product', 0)->where('wholesale_product', 0);
         if (get_setting('vendor_system_activation') != 1) {
             $products = $products->where('added_by', 'admin');
         }
         if ($request->has('user_id') && $request->user_id != null) {
-            $products = $products->where('user_id', $request->user_id);
+            $products  = $products->where('user_id', $request->user_id);
             $seller_id = $request->user_id;
         }
         if ($request->search != null) {
             $sort_search = $request->search;
-            $products = $products
+            $products    = $products
                 ->where('name', 'like', '%' . $sort_search . '%')
                 ->orWhereHas('stocks', function ($q) use ($sort_search) {
                     $q->where('sku', 'like', '%' . $sort_search . '%');
                 });
         }
         if ($request->type != null) {
-            $var = explode(",", $request->type);
-            $col_name = $var[0];
-            $query = $var[1];
-            $products = $products->orderBy($col_name, $query);
+            $var       = explode(",", $request->type);
+            $col_name  = $var[0];
+            $query     = $var[1];
+            $products  = $products->orderBy($col_name, $query);
             $sort_type = $request->type;
         }
 
         $products = $products->orderBy('created_at', 'desc')->paginate(15);
-        $type = 'All';
+        $type     = 'All';
 
         return view('backend.product.products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search'));
     }
@@ -178,7 +176,7 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        CoreComponentRepository::initializeCache();
+        // CoreComponentRepository::initializeCache();
 
         $categories = Category::where('parent_id', 0)
             ->where('digital', 0)
@@ -210,7 +208,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $product = $this->productService->store($request->except([
-            '_token', 'sku', 'choice', 'tax_id', 'tax', 'tax_type', 'flash_deal_id', 'flash_discount', 'flash_discount_type',
+            '_token', 'sku', 'choice', 'tax_id', 'tax_value', 'tax_types', 'flash_deal_id', 'flash_discount', 'flash_discount_type',
         ]));
         $request->merge(['product_id' => $product->id]);
 
@@ -274,17 +272,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function admin_product_edit(Request $request, $id): RedirectResponse|View
+    public function admin_product_edit(Request $request, $id): RedirectResponse | View
     {
-        CoreComponentRepository::initializeCache();
+        // CoreComponentRepository::initializeCache();
 
         $product = Product::findOrFail($id);
         if ($product->digital == 1) {
             return redirect('admin/digitalproducts/' . $id . '/edit');
         }
 
-        $lang = $request->lang;
-        $tags = json_decode($product->tags);
+        $lang       = $request->lang;
+        $tags       = json_decode($product->tags);
         $categories = Category::where('parent_id', 0)
             ->where('digital', 0)
             ->with('childrenCategories')
@@ -298,7 +296,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function seller_product_edit(Request $request, $id): RedirectResponse|View
+    public function seller_product_edit(Request $request, $id): RedirectResponse | View
     {
         $product = Product::findOrFail($id);
         if ($product->digital == 1) {
@@ -392,10 +390,10 @@ class ProductController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        $product = Product::findOrFail($id);
+        $product            = Product::findOrFail($id);
         $product_categories = ProductCategory::where('product_id', $id)->get();
-        $category_ids = array();
-        $category_ids[0] = $product->category_id;
+        $category_ids       = [];
+        $category_ids[0]    = $product->category_id;
         foreach ($product_categories as $category) {
             $category_ids[] = $category->category_id;
         }
@@ -460,7 +458,7 @@ class ProductController extends Controller
         // Product Categories
         foreach ($product->product_categories as $product_category) {
             ProductCategory::insert([
-                'product_id' => $product_new->id,
+                'product_id'  => $product_new->id,
                 'category_id' => $product_category->category_id,
             ]);
         }
@@ -486,7 +484,7 @@ class ProductController extends Controller
 
     public function updateTodaysDeal(Request $request)
     {
-        $product = Product::findOrFail($request->id);
+        $product              = Product::findOrFail($request->id);
         $product->todays_deal = $request->status;
         $product->save();
         Cache::forget('todays_deal_products');
@@ -495,7 +493,7 @@ class ProductController extends Controller
 
     public function updatePublished(Request $request)
     {
-        $product = Product::findOrFail($request->id);
+        $product            = Product::findOrFail($request->id);
         $product->published = $request->status;
 
         if ($product->added_by == 'seller' && addon_is_activated('seller_subscription') && $request->status == 1) {
@@ -518,7 +516,7 @@ class ProductController extends Controller
 
     public function updateProductApproval(Request $request)
     {
-        $product = Product::findOrFail($request->id);
+        $product           = Product::findOrFail($request->id);
         $product->approved = $request->approved;
 
         if ($product->added_by == 'seller' && addon_is_activated('seller_subscription')) {
@@ -534,11 +532,11 @@ class ProductController extends Controller
 
         $product->save();
 
-        $users = User::findMany($product->user_id);
-        $data = array();
-        $data['product_type'] = $product->digital == 0 ? 'physical' : 'digital';
-        $data['status'] = $request->approved == 1 ? 'approved' : 'rejected';
-        $data['product'] = $product;
+        $users                        = User::findMany($product->user_id);
+        $data                         = [];
+        $data['product_type']         = $product->digital == 0 ? 'physical' : 'digital';
+        $data['status']               = $request->approved == 1 ? 'approved' : 'rejected';
+        $data['product']              = $product;
         $data['notification_type_id'] = get_notification_type('seller_product_approved', 'type')->id;
         Notification::send($users, new ShopProductNotification($data));
 
@@ -549,7 +547,7 @@ class ProductController extends Controller
 
     public function updateFeatured(Request $request)
     {
-        $product = Product::findOrFail($request->id);
+        $product           = Product::findOrFail($request->id);
         $product->featured = $request->status;
         if ($product->save()) {
             Artisan::call('view:clear');
@@ -561,7 +559,7 @@ class ProductController extends Controller
 
     public function sku_combination(Request $request)
     {
-        $options = array();
+        $options = [];
         if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $colors_active = 1;
             array_push($options, $request->colors);
@@ -569,7 +567,7 @@ class ProductController extends Controller
             $colors_active = 0;
         }
 
-        $unit_price = $request->unit_price;
+        $unit_price   = $request->unit_price;
         $product_name = $request->name;
 
         if ($request->has('choice_no')) {
@@ -577,7 +575,7 @@ class ProductController extends Controller
                 $name = 'choice_options_' . $no;
                 // foreach (json_decode($request[$name][0]) as $key => $item) {
                 if (isset($request[$name])) {
-                    $data = array();
+                    $data = [];
                     foreach ($request[$name] as $key => $item) {
                         // array_push($data, $item->value);
                         array_push($data, $item);
@@ -595,7 +593,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($request->id);
 
-        $options = array();
+        $options = [];
         if ($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0) {
             $colors_active = 1;
             array_push($options, $request->colors);
@@ -604,14 +602,14 @@ class ProductController extends Controller
         }
 
         $product_name = $request->name;
-        $unit_price = $request->unit_price;
+        $unit_price   = $request->unit_price;
 
         if ($request->has('choice_no')) {
             foreach ($request->choice_no as $key => $no) {
                 $name = 'choice_options_' . $no;
                 // foreach (json_decode($request[$name][0]) as $key => $item) {
                 if (isset($request[$name])) {
-                    $data = array();
+                    $data = [];
                     foreach ($request[$name] as $key => $item) {
                         // array_push($data, $item->value);
                         array_push($data, $item);
