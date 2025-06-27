@@ -92,7 +92,7 @@ class CheckoutController extends Controller
                 })->orWhere('free_shipping', 1);
                 $carrier_list = $carrier_query->get();
 
-                if (count($carrier_list) > 1) {
+                if (count($carrier_list) >= 1) {
                     $default_carrier_id = $carrier_list->toQuery()->first()->id;
                 }
             }
@@ -103,7 +103,9 @@ class CheckoutController extends Controller
                 $subtotal += cart_product_price($cartItem, $product, false, false) * $cartItem['quantity'];
 
                 if (get_setting('shipping_type') == 'carrier_wise_shipping') {
+
                     $cartItem['shipping_cost'] = $country_id != 0 ? getShippingCost($carts, $key, $shipping_info, $default_carrier_id) : 0;
+
                 } else {
                     $cartItem['shipping_cost'] = getShippingCost($carts, $key, $shipping_info);
                 }

@@ -87,7 +87,8 @@
                             <th class="pl-0 fs-14 fw-400 pt-0 pb-2 text-dark border-top-0">
                                 {{ translate('Total Shipping') }}</th>
                             <td class="text-right pr-0 fs-14 pt-0 pb-2 text-dark border-top-0">
-                                {{ single_price($shipping) }}</td>
+                                {{ single_price($shipping) }}
+                            </td>
                         </tr>
                     @endif
                     <!-- Redeem point -->
