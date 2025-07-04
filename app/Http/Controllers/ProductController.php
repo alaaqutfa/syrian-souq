@@ -336,11 +336,11 @@ class ProductController extends Controller
         //     $category_products_count = get_count_product_in_category($category_id);
         //     activate_category($category_id, $category_products_count);
         // }
-
+        
         //Product Stock
         $product->stocks()->delete();
         $this->productStockService->store($request->only([
-            'colors_active', 'colors', 'choice_no', 'unit_price', 'sku', 'current_stock', 'product_id',
+            'colors_active', 'colors', 'choice_no', 'wholesale_price', 'unit_price', 'sku', 'current_stock', 'product_id',
         ]), $product);
 
         //Flash Deal
