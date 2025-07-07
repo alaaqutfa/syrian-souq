@@ -110,7 +110,7 @@
                                     {{ translate('Product Information') }}</h5>
                                 <div class="w-100">
                                     <div class="row">
-                                        <div class="col-xxl-7 col-xl-6">
+                                        <div class="col-xxxl-7 col-xl-6">
                                             <!-- Product Name -->
                                             <div class="form-group row">
                                                 <label
@@ -220,7 +220,7 @@
                                         </div>
 
                                         <!-- Product Category -->
-                                        <div class="col-xxl-5 col-xl-6">
+                                        <div class="col-xxxl-5 col-xl-6">
                                             <div
                                                 class="card @if ($errors->has('category_ids') || $errors->has('category_id')) border border-danger @endif">
                                                 <div class="card-header">
@@ -1009,19 +1009,19 @@
                 success: function(data) {
                     var obj = JSON.parse(data);
                     $('#customer_choice_options').append('\
-                                <div class="form-group row">\
-                                    <div class="col-md-3">\
-                                        <input type="hidden" name="choice_no[]" value="' + i + '">\
-                                        <input type="text" class="form-control" name="choice[]" value="' + name +
+                                        <div class="form-group row">\
+                                            <div class="col-md-3">\
+                                                <input type="hidden" name="choice_no[]" value="' + i + '">\
+                                                <input type="text" class="form-control" name="choice[]" value="' + name +
                         '" placeholder="{{ translate('Choice Title') }}" readonly>\
-                                    </div>\
-                                    <div class="col-md-8">\
-                                        <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' +
+                                            </div>\
+                                            <div class="col-md-8">\
+                                                <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_' +
                         i + '[]" data-selected-text-format="count" multiple>\
-                                            ' + obj + '\
-                                        </select>\
-                                    </div>\
-                                </div>');
+                                                    ' + obj + '\
+                                                </select>\
+                                            </div>\
+                                        </div>');
                     AIZ.plugins.bootstrapSelect('refresh');
                 }
             });
